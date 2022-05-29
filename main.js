@@ -321,25 +321,12 @@ function slideDown(){
     }
 }
 
-document.addEventListener("touchstart", ev =>{
+document.addEventListener("touchend", ev =>{
 
-
-    console.log(ev.touches.length);
-    switch (ev.targetTouches.length) {
-        case 1:
-            // Single tap`
-            //ev.target.style.background = "yellow";
-            if(count_for_double >= 10) {
-                double_score = true;
-            }
-            break;
-        case 2:
-            // Two simultaneous touches
-            ev.target.style.background = "pink";
-            break;
-        default:
-            // More than two simultaneous touches
-            ev.target.style.background = "lightblue";
+    if(ev.targetTouches.length >= 0) {
+        if(count_for_double >= 10) {
+            double_score = true;
+        }
     }
     ev.preventDefault();
 }, false);
