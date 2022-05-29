@@ -1,165 +1,12 @@
-// document.addEventListener('DOMContentLoaded', () =>{
-//     const gridDisplay = document.querySelector('.grid')
-//     const score = document.getElementById('score')
-//     const result = document.getElementsByName('result')
-//
-//     //Board variables
-//     const width = 4
-//     let squares = []
-//
-//     //Create board
-//     function createBoard() {
-//         for (let i = 0; i < width * width; i++){
-//             square = document.createElement('div')
-//             square.innerHTML = 0
-//             gridDisplay.appendChild(square)
-//             squares.push(square)
-//         }
-//         genrate()
-//         genrate()
-//     }
-//
-//     createBoard()
-//
-//     //generate a digit randomly
-//     function genrate(){
-//         let randNo = Math.floor(Math.random() * squares.length)
-//         if(squares[randNo].innerHTML == 0) {
-//
-//             squares[randNo].innerHTML = 2
-//
-//         }
-//         else
-//             genrate()
-//
-//         paintCell()
-//     }
-//
-//     function paintCell(){
-//         for(let i = 0; i < width*width; i++){
-//             if(squares[i].innerHTML == 0){
-//                 squares[i].style.background = "antiquewhite"
-//             }
-//             else if(squares[i].innerHTML == 2 || squares[i].innerHTML == 4) {
-//                 squares[i].style.background = "white"
-//             }
-//             else if(squares[i].innerHTML == 16 || squares[i].innerHTML == 32){
-//                 squares[i].style.background = "brown"
-//             }
-//
-//         }
-//     }
-//
-//     //swipe right
-//     function moveRight(){
-//         for(let i = 0; i < width*width; i++){
-//             if(i % width === 0){
-//                 let totalOne = squares[i].innerHTML
-//                 let totalTwo = squares[i+1].innerHTML
-//                 let totalThree = squares[i+2].innerHTML
-//                 let totalFour = squares[i+3].innerHTML
-//
-//                 let row =[
-//                     parseInt(totalOne),
-//                     parseInt(totalTwo),
-//                     parseInt(totalThree),
-//                     parseInt(totalFour)
-//                 ]
-//
-//                 let filteredRow = row.filter(num => num)
-//
-//                 let missValues = width - filteredRow.length
-//                 let zeros = Array(missValues).fill(0)
-//                 let newRow = zeros.concat(filteredRow)
-//
-//                 squares[i].innerHTML = newRow[0]
-//                 squares[i+1].innerHTML = newRow[1]
-//                 squares[i+2].innerHTML = newRow[2]
-//                 squares[i+3].innerHTML = newRow[3]
-//             }
-//
-//         }
-//     }
-//
-//     //swipe left
-//     function moveLeft(){
-//         for(let i = 0; i < width*width; i++){
-//             if(i % width === 0){
-//                 let totalOne = squares[i].innerHTML
-//                 let totalTwo = squares[i+1].innerHTML
-//                 let totalThree = squares[i+2].innerHTML
-//                 let totalFour = squares[i+3].innerHTML
-//
-//                 let row =[
-//                     parseInt(totalOne),
-//                     parseInt(totalTwo),
-//                     parseInt(totalThree),
-//                     parseInt(totalFour)
-//                 ]
-//
-//                 let filteredRow = row.filter(num => num)
-//
-//                 let missValues = width - filteredRow.length
-//                 let zeros = Array(missValues).fill(0)
-//                 let newRow = filteredRow.concat(zeros)
-//
-//                 squares[i].innerHTML = newRow[0]
-//                 squares[i+1].innerHTML = newRow[1]
-//                 squares[i+2].innerHTML = newRow[2]
-//                 squares[i+3].innerHTML = newRow[3]
-//             }
-//
-//         }
-//     }
-//
-//     //
-//     function combineRow() {
-//         for(let i = 0; i < width * width - 1; i++){
-//             if(squares[i].innerHTML === squares[i+1].innerHTML){
-//                 let combinedTotal = parseInt(squares[i].innerHTML) + parseInt(squares[i+1].innerHTML)
-//                 squares[i].innerHTML = combinedTotal
-//                 squares[i+1].innerHTML = 0
-//             }
-//         }
-//     }
-//     document.addEventListener('keyup', control)
-//
-//    // assigne keys
-//     function control(e){
-//         if(e.keyCode === 39){
-//             keyRight()
-//         } else if(e.keyCode === 37)
-//         {
-//             keyLeft()
-//         }
-//
-//     }
-//
-//     function keyRight(){
-//         moveRight()
-//         combineRow()
-//         moveRight()
-//         genrate()
-//     }
-//
-//     function keyLeft(){
-//         moveLeft()
-//         combineRow()
-//         moveLeft()
-//         genrate()
-//     }
-// })
-
-
-
-
-
-
-
 var board;
+var cpy_board;
 var score = 0;
 var rows = 4;
 var colums = 4;
+var double_score = false;
+var count_for_double = 0;
+var three_times_double_score = 0;
+var no_of_moves = 0;
 
 window.onload = function (){
     setGame();
@@ -172,6 +19,7 @@ function setGame(){
         [0, 0, 0, 0],
         [0, 0, 0, 0]
     ]
+    // test board
     // board = [
     //         [2, 2, 2, 2],
     //         [2, 2, 2, 2],
@@ -241,6 +89,37 @@ function updateTile(tile, num){
     }
 }
 
+
+function setScore(){
+    no_of_moves++;
+    count_for_double++;
+    progressBar(count_for_double);
+    document.getElementById("noOfMoves").innerText = no_of_moves;
+    if(compareArr(board, cpy_board)){
+        if(double_score){
+            three_times_double_score++;
+
+            document.getElementById("score").innerText = score * 2;
+
+            if(three_times_double_score == 3){
+                count_for_double = 0;
+                double_score = false;
+                three_times_double_score = 0;
+                document.getElementById("dsbar").style.width = 100 + "px" ;
+            }
+
+        }
+        else{
+            document.getElementById("score").innerText = score;
+        }
+
+    }
+    else{
+        document.getElementById("score").innerText = "Game over";
+    }
+
+}
+
 document.addEventListener("touchstart", startTouch, false);
 document.addEventListener("touchmove", moveTouch, false);
 
@@ -282,8 +161,9 @@ function moveTouch(e) {
     } else {
         // sliding vertically
         if (diffY > 0) {
-            slideUp();
+
             // swiped up
+            slideUp();
             console.log("swiped up");
         } else {
             // swiped down
@@ -292,8 +172,9 @@ function moveTouch(e) {
         }
     }
 
+
     setTwo();
-    document.getElementById("score").innerText = score;
+    setScore();
 
     initialX = null;
     initialY = null;
@@ -302,9 +183,37 @@ function moveTouch(e) {
 };
 
 
+function compareArr(arr1, arr2){
+    for(let r = 0; r < rows; r++){
+        for(let c = 0; c < rows; c++){
+            if(arr1[r][c] != arr2[r][c]){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
+function cpyArr(arr){
+    var carr = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ];
+    for(let r = 0; r < rows; r++){
+        for(let c = 0; c < rows; c++){
+            carr[r][c] = arr[r][c];
+        }
+    }
+
+    return carr;
+}
 
 document.addEventListener("keyup", (e) =>{
+    cpy_board = cpyArr(board);
+    console.log("test");
+    console.log(cpy_board);
     if(e.code == "ArrowLeft"){
         slideLeft();
     }
@@ -317,9 +226,16 @@ document.addEventListener("keyup", (e) =>{
     else if(e.code == "ArrowDown"){
         slideDown();
     }
+
     setTwo();
-    document.getElementById("score").innerText = score;
+    setScore();
 })
+
+function progressBar(num){
+    var n = num * 10;
+    if(n <= 100)
+    document.getElementById("dsbar").style.width = n + "px" ;
+}
 
 function filterZero(row){
     return row.filter(num => num != 0);
@@ -379,10 +295,6 @@ function slideUp(){
     for(let c = 0; c < colums; c++){
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
         row = slide(row);
-        // board[0][c] = row[0];
-        // board[1][c] = row[1];
-        // board[2][c] = row[2];
-        // board[3][c] = row[3];
 
         for(let r = 0; r < rows; r++){
             board[r][c] = row[r];
@@ -399,10 +311,6 @@ function slideDown(){
         row.reverse();
         row = slide(row);
         row.reverse();
-        // board[0][c] = row[0];
-        // board[1][c] = row[1];
-        // board[2][c] = row[2];
-        // board[3][c] = row[3];
 
         for(let r = 0; r < rows; r++){
             board[r][c] = row[r];
@@ -412,6 +320,29 @@ function slideDown(){
         }
     }
 }
+
+document.addEventListener("touchstart", ev =>{
+
+
+    console.log(ev.touches.length);
+    switch (ev.targetTouches.length) {
+        case 1:
+            // Single tap`
+            //ev.target.style.background = "yellow";
+            if(count_for_double >= 10) {
+                double_score = true;
+            }
+            break;
+        case 2:
+            // Two simultaneous touches
+            ev.target.style.background = "pink";
+            break;
+        default:
+            // More than two simultaneous touches
+            ev.target.style.background = "lightblue";
+    }
+    ev.preventDefault();
+}, false);
 
 
 

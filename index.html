@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale:1.0">
+        <link rel="shortcut icon" type="image/jpg" href="2048.ico"/>
         <title>2048</title>
         <link rel="stylesheet" href="style.css">
         <script src="main.js" charset="utf-8"></script>
@@ -10,8 +12,19 @@
     <body>
         <h1>2048</h1>
         <hr>
-            <h2>Score: <span id="score">0</span></h2>
+            <div class="container">
+                <div class="score">
+                    <div class="scoreTag">SCORE</div>
+                    <div id="score" class="scoreText">0</div>
+                </div>
+                <div id="doubleScore"><div id="dsbar"></div></div>
+                <div class="score">
+                    <div class="scoreTag">No. of moves</div>
+                    <div class="scoreText" id="noOfMoves">0</div>
+                </div>
+            </div>
             <div id="board"></div>
+
     </body>
 
 </html>
