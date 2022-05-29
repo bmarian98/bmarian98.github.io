@@ -3,26 +3,36 @@ var cpy_board;
 var score = 0;
 var rows = 4;
 var colums = 4;
-var double_score = false;
-var count_for_double = 0;
-var three_times_double_score = 0;
+var count_add_hundred = 0;
 var no_of_moves = 0;
 var board_element;
 
 window.onload = function() {
-    board_element = document.getElementById("board");
+
     setGame();
+    board_element = document.getElementById("board");
+
     board_element.addEventListener("touchstart", startTouch, false);
     board_element.addEventListener("touchmove", moveTouch, false);
 
-    document.addEventListener("touchend", ev => {
 
-        if (ev.targetTouches.length >= 0) {
-            if (count_for_double >= 10) {
-                double_score = true;
-            }
-        }
+    document.addEventListener("touchstart", ev => {
         ev.preventDefault();
+
+        console.log(ev.touches.length);
+        switch (ev.targetTouches.length) {
+            case 2:
+                console.log("intra " + count_add_hundred);
+                if (count_add_hundred >= 10) {
+                    score += 100;
+                    document.getElementById("score").innerText = score;
+                    count_add_hundred = 0;
+                    document.getElementById("dsbar").style.width = 100 + "px";
+                    progressBar(count_add_hundred);
+                }
+                break;
+        }
+
     }, false);
 }
 
@@ -104,31 +114,10 @@ function updateTile(tile, num) {
 
 function setScore() {
     no_of_moves++;
-    count_for_double++;
-    progressBar(count_for_double);
+    count_add_hundred++;
+    progressBar(count_add_hundred);
     document.getElementById("noOfMoves").innerText = no_of_moves;
-
-    //if (compareArr(board, cpy_board)) {
-    if (double_score) {
-        three_times_double_score++;
-
-        document.getElementById("score").innerText = score * 2;
-
-        if (three_times_double_score == 3) {
-            count_for_double = 0;
-            double_score = false;
-            three_times_double_score = 0;
-            document.getElementById("dsbar").style.width = 100 + "px";
-        }
-
-    } else {
-        document.getElementById("score").innerText = score;
-    }
-
-    //} else {
-    //document.getElementById("score").innerText = "Game over";
-    //}
-
+    document.getElementById("score").innerText = score;
 }
 
 
