@@ -14,6 +14,16 @@ window.onload = function() {
     setGame();
     board_element.addEventListener("touchstart", startTouch, false);
     board_element.addEventListener("touchmove", moveTouch, false);
+
+    document.addEventListener("touchend", ev => {
+
+        if (ev.targetTouches.length >= 0) {
+            if (count_for_double >= 10) {
+                double_score = true;
+            }
+        }
+        ev.preventDefault();
+    }, false);
 }
 
 function setGame() {
@@ -116,13 +126,10 @@ function setScore() {
     }
 
     //} else {
-    document.getElementById("score").innerText = "Game over";
+    //document.getElementById("score").innerText = "Game over";
     //}
 
 }
-
-
-
 
 
 // Swipe Up / Down / Left / Right
@@ -154,11 +161,11 @@ function moveTouch(e) {
         if (diffX > 0) {
             // swiped left
             slideLeft();
-            console.log("swiped left");
+            //console.log("swiped left");
         } else {
             // swiped right
             slideRight();
-            console.log("swiped right");
+            //console.log("swiped right");
         }
     } else {
         // sliding vertically
@@ -166,11 +173,11 @@ function moveTouch(e) {
 
             // swiped up
             slideUp();
-            console.log("swiped up");
+            //console.log("swiped up");
         } else {
             // swiped down
             slideDown();
-            console.log("swiped down");
+            //console.log("swiped down");
         }
     }
 
@@ -319,13 +326,3 @@ function slideDown() {
         }
     }
 }
-
-document.addEventListener("touchend", ev => {
-
-    if (ev.targetTouches.length >= 0) {
-        if (count_for_double >= 10) {
-            double_score = true;
-        }
-    }
-    ev.preventDefault();
-}, false);
