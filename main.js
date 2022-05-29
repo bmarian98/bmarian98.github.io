@@ -22,7 +22,6 @@ window.onload = function() {
         console.log(ev.touches.length);
         switch (ev.targetTouches.length) {
             case 2:
-                console.log("intra " + count_add_hundred);
                 if (count_add_hundred >= 10) {
                     score += 100;
                     document.getElementById("score").innerText = score;
@@ -31,9 +30,16 @@ window.onload = function() {
                     progressBar(count_add_hundred);
                 }
                 break;
+            case 3:
+                resetBoard();
+                break;
         }
 
     }, false);
+}
+
+function resetBoard() {
+    document.location.reload();
 }
 
 function setGame() {
