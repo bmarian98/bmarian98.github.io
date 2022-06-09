@@ -1,30 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale:1.0">
-        <link rel="shortcut icon" type="image/jpg" href="2048.ico"/>
-        <title>2048</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="main.js" charset="utf-8"></script>
-    </head>
 
-    <body>
-        <h1>2048</h1>
-        <hr>
-            <div class="container">
-                <div class="score">
-                    <div class="scoreTag">SCORE</div>
-                    <div id="score" class="scoreText">0</div>
-                </div>
-                <div id="doubleScore"><div id="dsbar"></div></div>
-                <div class="score">
-                    <div class="scoreTag">No. of moves</div>
-                    <div class="scoreText" id="noOfMoves">0</div>
-                </div>
-            </div>
-            <div id="board"></div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale:1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="shortcut icon" type="image/jpg" href="2048.ico" />
+    <title>2048</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" charset="utf-8"></script>
+</head>
 
-    </body>
+<body>
+    <h1>2048</h1>
+    <hr>
+    <div class="container">
+        <div class="score">
+            <div class="scoreTag">SCORE</div>
+            <div id="score" class="scoreText">0</div>
+        </div>
+        <div id="doubleScore">
+            <div id="dsbar"></div>
+        </div>
+        <div class="score">
+            <div class="scoreTag">No. of moves</div>
+            <div class="scoreText" id="noOfMoves">0</div>
+        </div>
+    </div>
+
+    <div id="board"></div>
+    <br><br><br>
+    <h3>Game intructions</h3>
+    <div class="panel panel-default">
+        <!-- <div class="panel-body">A Basic Panel</div> -->
+        <div>
+            <i class="fas fa-arrow-alt-circle-up"></i><span> - swipe up</span>
+
+            <i class="fas fa-arrow-alt-circle-down"></i><span> - swipe down</span>
+
+            <i class="fas fa-arrow-alt-circle-left"></i><span> - swipe left</span>
+
+            <i class="fas fa-arrow-alt-circle-right"></i><span> - swipe right</span>
+        </div>
+        <div>
+            <br>
+            <i class="fas fa-bolt"></i><span> - press 2 fingers outside the game panel when bar is greeen (+100 pts.) </span>
+        </div>
+        <div>
+            <br>
+            <i class="fas fa-sync"></i><span> - press 3 fingers outside the game panel for restarting </span>
+        </div>
+    </div>
+
+
+
+</body>
 
 </html>
