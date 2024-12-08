@@ -1,0 +1,131 @@
+:root {
+  --background-dark: #121212;
+  --text-light: #ffffff;
+  --neon-blue: #00ffff;
+  --neon-pink: #ff007f;
+  --grey-dark: #1f1f1f;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--background-dark);
+  color: var(--text-light);
+}
+
+/* Sticky Navbar */
+.navbar-brand {
+  color: var(--neon-blue) !important; /* Make navbar brand blue */
+}
+
+.navbar-brand:hover {
+  color: var(--neon-pink) !important; /* Hover effect to pink */
+}
+
+/* Header Section */
+header {
+  padding: 150px 0 50px 0; /* Adjusted padding to account for navbar */
+  background: var(--background-dark);
+}
+
+header .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header .d-flex {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Add consistent gap between elements */
+}
+
+header img {
+  border: 5px solid var(--neon-blue);
+  border-radius: 50%;
+  max-width: 400px;
+  height: 400px;
+  box-shadow: 0 0 20px var(--neon-blue);
+}
+
+header .d-flex .btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--neon-blue);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+header .d-flex .btn:hover {
+  background: var(--neon-blue);
+  color: var(--background-dark);
+}
+
+header .d-flex .mr-3 {
+  margin-right: 0; /* Ensure no extra margin between sections */
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+header p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* About Section */
+#about, #projects, #contact {
+  padding: 50px 0; /* Same padding as header */
+}
+
+#about, #contact {
+  background: var(--grey-dark);
+}
+
+#projects {
+  background: var(--background-dark);
+}
+
+/* Adjusting padding for sections */
+section {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+section#about .container,
+section#projects .container,
+section#contact .container {
+  padding-left: 30px; /* Reduces left padding */
+  padding-right: 30px; /* Reduces right padding */
+}
+
+/* Footer */
+footer {
+  background: #2c3e50; /* A dark blue-gray color that fits the theme but is distinct from other sections */
+  color: var(--text-light); /* White text for contrast */
+  padding: 80px 0; /* Increased padding to make the footer taller */
+  text-align: center;
+}
+
+footer .fab {
+  font-size: 2rem; /* Increased icon size */
+  margin: 0 10px; /* Added space between the icons */
+}
+
+footer .fab:hover {
+  color: var(--neon-blue); /* Hover effect for the icons */
+}
+
+footer p {
+  font-size: 1.2rem; /* Increased text size */
+  margin-top: 15px; /* Added space above the text */
+}
+
+/* Smooth Scroll for Navigation Links */
+html {
+  scroll-behavior: smooth;
+}

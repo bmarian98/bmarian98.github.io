@@ -1,11 +1,89 @@
-Hello Worldls!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marian Bodnar</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Marian Bodnar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="9301eeea-c745-4c9b-8b06-015aeb609560" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+  <!-- Header Section -->
+  <header id="home">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-center">
+        <!-- Left Section: Image -->
+        <div class="mr-3">
+          <img src="images/image_profile.png" alt="Your Name" class="rounded-circle" style="width: 400px; height: 400px; border: 5px solid var(--neon-blue);">
+        </div>
+        <!-- Middle Section: Buttons -->
+        <div class="d-flex flex-column align-items-center mr-4" style="gap: 20px;">
+          <a href="https://linkedin.com" target="_blank" class="btn btn-outline-light" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="mailto:youremail@example.com" class="btn btn-outline-light" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+        <!-- Right Section: Name and About Me -->
+        <div>
+          <h1>Marian Bodnar</h1>
+          <p class="lead mt-3">I am a passionate web developer who loves crafting sleek and user-friendly designs. With a focus on creating impactful web applications, I aim to bring your ideas to life.</p>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="3cbbbda5-ba6c-4635-a861-3bb6b13b332f" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+  <!-- About Section -->
+  <section id="about" class="py-5 text-center" style="background: var(--grey-dark); color: var(--text-light);">
+    <div class="container">
+      <h2>About Me</h2>
+      <p class="mt-3">I am a passionate web developer with a knack for creating sleek and user-friendly designs...</p>
+    </div>
+  </section>
 
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="1b6dd5fb-0cbe-4f08-8f75-da28b88d455e" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+  <!-- Projects Section -->
+  <section id="projects" class="py-5 text-center" style="background: var(--background-dark); color: var(--text-light);">
+    <div class="container">
+      <h2>Projects</h2>
+      <p class="mt-3">Explore some of my favorite projects that showcase my skills and creativity.</p>
+    </div>
+  </section>
 
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="88be74a4-3418-4577-b53f-8f978423208c" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+  <!-- Contact Section -->
+  <section id="contact" class="py-5 text-center" style="background: var(--grey-dark); color: var(--text-light);">
+    <div class="container">
+      <h2>Contact</h2>
+      <p class="mt-3">Feel free to reach out to discuss opportunities or collaborations.</p>
+    </div>
+  </section>
 
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="e3536e2b-a534-427c-b7b7-38ee1078c832" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+  <!-- Footer -->
+  <footer class="text-center py-3">
+    <p>Connect with me:</p>
+    <a href="#" class="text-light mx-2"><i class="fab fa-github fa-2x"></i></a>
+    <a href="#" class="text-light mx-2"><i class="fab fa-linkedin fa-2x"></i></a>
+    <a href="#" class="text-light mx-2"><i class="fab fa-twitter fa-2x"></i></a>
+    <p class="mt-2">&copy; 2024 My Neo Website</p>
+  </footer>
