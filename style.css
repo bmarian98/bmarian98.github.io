@@ -45,6 +45,7 @@ header img {
   max-width: 400px;
   height: 400px;
   box-shadow: 0 0 20px var(--neon-blue);
+  /* clip-path: ellipse(50% 90% at 50% 100%); /* Clips the bottom to create a U shape */
 }
 
 header .d-flex .btn {
@@ -101,6 +102,41 @@ section#projects .container,
 section#contact .container {
   padding-left: 30px; /* Reduces left padding */
   padding-right: 30px; /* Reduces right padding */
+}
+
+/* Certification Section */
+#certification {
+  padding: 50px 0;
+  background: var(--background-light);
+}
+
+#certification h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#certification .row {
+  display: flex;
+  justify-content: center;
+}
+
+#certification .col-md-4 {
+  flex: 1;
+  padding: 10px;
+}
+
+#certification ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#certification li {
+  background: var(--background-dark);
+  color: var(--text-light);
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Footer */
