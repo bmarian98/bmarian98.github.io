@@ -1,167 +1,163 @@
-:root {
-  --background-dark: #121212;
-  --text-light: #ffffff;
-  --neon-blue: #00ffff;
-  --neon-pink: #ff007f;
-  --grey-dark: #1f1f1f;
-}
-
 body {
-  font-family: 'Arial', sans-serif;
-  background: var(--background-dark);
-  color: var(--text-light);
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+/*TO do the backgroun solidcolor */
+.img{
+  background: #1a1a1a;
+  backface-visibility: visible;
 }
 
-/* Sticky Navbar */
-.navbar-brand {
-  color: var(--neon-blue) !important; /* Make navbar brand blue */
+.about {
+  padding: 10px 0;
+  width: 80%;
 }
 
-.navbar-brand:hover {
-  color: var(--neon-pink) !important; /* Hover effect to pink */
+.dark-mode {
+  background: #0d0d0d;
+  color: white;
 }
-
-/* Header Section */
-header {
-  padding: 150px 0 50px 0; /* Adjusted padding to account for navbar */
-  background: var(--background-dark);
+.light-mode {
+  background: #f4f4f4;
+  color: #333;
 }
-
-header .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.glow {
+  text-shadow: 0px 0px 10px #00f0ff;
 }
-
-header .d-flex {
-  display: flex;
-  align-items: center;
-  gap: 30px; /* Add consistent gap between elements */
-}
-
-header img {
-  border: 5px solid var(--neon-blue);
-  border-radius: 50%;
-  max-width: 400px;
-  height: 400px;
-  box-shadow: 0 0 20px var(--neon-blue);
-  /* clip-path: ellipse(50% 90% at 50% 100%); /* Clips the bottom to create a U shape */
-}
-
-header .d-flex .btn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--neon-blue);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-header .d-flex .btn:hover {
-  background: var(--neon-blue);
-  color: var(--background-dark);
-}
-
-header .d-flex .mr-3 {
-  margin-right: 0; /* Ensure no extra margin between sections */
-}
-
-header h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-}
-
-header p {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-/* About Section */
-#about, #projects, #contact {
-  padding: 50px 0; /* Same padding as header */
-}
-
-#about, #contact {
-  background: var(--grey-dark);
-}
-
-#projects {
-  background: var(--background-dark);
-}
-
-/* Adjusting padding for sections */
-section {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-section#about .container,
-section#projects .container,
-section#contact .container {
-  padding-left: 30px; /* Reduces left padding */
-  padding-right: 30px; /* Reduces right padding */
-}
-
-/* Certification Section */
-#certification {
-  padding: 50px 0;
-  background: var(--background-light);
-}
-
-#certification h2 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-#certification .row {
-  display: flex;
-  justify-content: center;
-}
-
-#certification .col-md-4 {
-  flex: 1;
-  padding: 10px;
-}
-
-#certification ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-#certification li {
-  background: var(--background-dark);
-  color: var(--text-light);
-  margin: 10px 0;
+.neo {
+  background: #1a1a1a;
+  box-shadow: 6px 6px 12px #0a0a0a, -6px -6px 12px #292929;
+  border-radius: 10px;
   padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.light-mode .neo {
+  background: #ffffff;
+  box-shadow: 6px 6px 12px #cccccc, -6px -6px 12px #ffffff;
+}
+.timeline {
+  position: absolute;
+  width: 4px;
+  background: #00bcd4;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Footer */
-footer {
-  background: #2c3e50; /* A dark blue-gray color that fits the theme but is distinct from other sections */
-  color: var(--text-light); /* White text for contrast */
-  padding: 80px 0; /* Increased padding to make the footer taller */
+/* Custom sizes */
+.w-128 {
+  width: 32rem; /* 512px */
+}
+.h-128 {
+  height: 32rem; /* 512px */
+}
+
+/* Work Experience Container */
+/* Timeline Container */
+.timeline-container {
+  position: relative;
+  width: 100%;
+  padding: 50px 0; /* Add padding to the top and bottom */
+}
+
+/* Timeline Vertical Line */
+.timeline {
+  position: absolute;
+  width: 4px;
+  background: #00bcd4;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Timeline Items */
+.timeline-item {
+  position: relative;
+  width: calc(50% - 50px); /* Adjust width to make items larger and account for padding */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Alternating Timeline Layout */
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+  padding-right: 50px; /* Add padding to the right */
+  padding-left: 0; /* Remove padding from the left */
+}
+
+.timeline-item.right {
+  left: calc(50% + 4px); /* Adjust left value to account for the timeline width */
+  text-align: left;
+  padding-left: 50px; /* Add padding to the left */
+  padding-right: 0; /* Remove padding from the right */
+}
+
+/* Timeline Icons */
+.timeline-icon {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #00bcd4;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  z-index: 10;
+  border: 4px solid #0d0d0d;
+}
+
+/* Cards Styling */
+.timeline-card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%; /* Make the card take the full width of the timeline item */
+  box-shadow: 0px 4px 10px rgba(0, 188, 212, 0.3);
+  margin-bottom: 10px; /* Add margin to the bottom */
+}
+
+/* Credly Grid */
+.credly-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.credly-grid-item {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-footer .fab {
-  font-size: 2rem; /* Increased icon size */
-  margin: 0 10px; /* Added space between the icons */
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 20px;
 }
 
-footer .fab:hover {
-  color: var(--neon-blue); /* Hover effect for the icons */
+.skills-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-footer p {
-  font-size: 1.2rem; /* Increased text size */
-  margin-top: 15px; /* Added space above the text */
-}
-
-/* Smooth Scroll for Navigation Links */
-html {
-  scroll-behavior: smooth;
+.devicon {
+  font-size: 48px;
+  color: #00bcd4;
 }
