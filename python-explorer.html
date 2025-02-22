@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python | Marian Bodnar</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    
+    <script src="assets/js/explorer.js" defer></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/explorer.css">
+    
+</head>
+<body class="dark-mode">
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full flex justify-between p-6 z-50">
+        <h1 class="text-xl font-semibold glow">
+            <a href="index.html">Marian <span class="text-cyan-400">Bodnar</span></a>
+        </h1>
+        <div class="flex gap-6 items-center">
+            <ul class="flex gap-6">
+                <li><a href="index.html" class="hover:text-cyan-400">Home</a></li>
+                <li><a href="index.html#experience" class="hover:text-cyan-400">Experience</a></li>
+                <li><a href="index.html#studies" class="hover:text-cyan-400">Studies</a></li>
+                <li><a href="index.html#certs" class="hover:text-cyan-400">Certifications</a></li>
+                <li><a href="index.html#skills" class="hover:text-cyan-400">Skills</a></li>
+                <li><a href="index.html#projects" class="hover:text-cyan-400">Projects</a></li>
+                <li><a href="index.html#contact" class="hover:text-cyan-400">Contact</a></li>
+                <li><a href="python-explorer.html" class="text-cyan-400 border-b-2 border-cyan-400">Python</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 pt-24 pb-12">
+        <!-- Title removed as requested -->
+        
+        <div class="file-explorer">
+            <div class="file-tree" id="file-tree">
+                <!-- File tree will be populated here -->
+            </div>
+            <div class="file-content" id="file-content">
+                <div class="text-center p-10">
+                    <i class="fas fa-code fa-3x mb-6 text-cyan-400"></i> <!-- Reduced icon size -->
+                    <h2 class="text-2xl font-bold mb-4">Select a file to view its contents</h2>
+                    <p class="text-sm text-gray-500">Files from the courses folder</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 bg-black bg-opacity-40">
+        <p class="text-gray-400" id="current-year"></p>
+    </footer>
+
+</body>
+</html>

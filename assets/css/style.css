@@ -1,0 +1,453 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+/*TO do the backgroun solidcolor */
+.img{
+  background: #1a1a1a;
+  backface-visibility: visible;
+}
+
+.about {
+  padding: 10px 0;
+  width: 80%;
+}
+
+.dark-mode {
+  background: #0d0d0d;
+  color: white;
+}
+.light-mode {
+  background: #f4f4f4;
+  color: #333;
+}
+.glow {
+  text-shadow: 0px 0px 10px #00f0ff;
+}
+.neo {
+  background: #1a1a1a;
+  box-shadow: 6px 6px 12px #0a0a0a, -6px -6px 12px #292929;
+  border-radius: 10px;
+  padding: 15px;
+}
+.light-mode .neo {
+  background: #ffffff;
+  box-shadow: 6px 6px 12px #cccccc, -6px -6px 12px #ffffff;
+}
+.timeline {
+  position: absolute;
+  width: 4px;
+  background: #00bcd4;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Custom sizes */
+.w-128 {
+  width: 32rem; /* 512px */
+}
+.h-128 {
+  height: 32rem; /* 512px */
+}
+
+/* Work Experience Container */
+/* Timeline Container */
+.timeline-container {
+  position: relative;
+  width: 100%;
+  padding: 50px 0; /* Add padding to the top and bottom */
+}
+
+/* Timeline Vertical Line */
+.timeline {
+  position: absolute;
+  width: 4px;
+  background: #00bcd4;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Timeline Items */
+.timeline-item {
+  position: relative;
+  width: calc(50% - 50px); /* Adjust width to make items larger and account for padding */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Alternating Timeline Layout */
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+  padding-right: 50px; /* Add padding to the right */
+  padding-left: 0; /* Remove padding from the left */
+}
+
+.timeline-item.right {
+  left: calc(50% + 4px); /* Adjust left value to account for the timeline width */
+  text-align: left;
+  padding-left: 50px; /* Add padding to the left */
+  padding-right: 0; /* Remove padding from the right */
+}
+
+/* Timeline Icons */
+.timeline-icon {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #00bcd4;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  z-index: 10;
+  border: 4px solid #0d0d0d;
+}
+
+/* Cards Styling */
+.timeline-card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%; /* Make the card take the full width of the timeline item */
+  box-shadow: 0px 4px 10px rgba(0, 188, 212, 0.3);
+  margin-bottom: 10px; /* Add margin to the bottom */
+}
+
+/* Credly Grid */
+.credly-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.credly-grid-item {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.skills-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.devicon{
+  font-size: 48px;
+  color: #00bcd4;
+}
+
+.fa-gitlab,.fa-github, .fab, .fas{
+  font-size: 25px;
+  color: #00bcd4;
+}
+
+
+#projects-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  #projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  #projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+#projects-videos-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  #projects-videos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  #projects-videos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+#projects-links-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  #projects-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  #projects-links-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.project-item {
+  background: var(--background-dark);
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.project-link-item {
+  background: var(--background-dark);
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.project-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create a grid with 4 columns */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px; /* Increased margin for more space */
+}
+
+.project-links li {
+  margin-bottom: 10px;
+}
+
+.project-links a {
+  color: var(--text-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.project-links a i {
+  margin-right: 8px;
+}
+
+.project-links a:hover {
+  text-decoration: underline;
+}
+
+/* Contact Section */
+.contact-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--background-dark);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.contact-info {
+  margin-bottom: 20px;
+}
+
+.contact-info p {
+  margin: 10px 0;
+  color: var(--text-light);
+}
+
+.contact-info i {
+  margin-right: 10px;
+}
+
+.contact-icons a {
+  color: var(--text-light);
+  font-size: 24px;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+.contact-icons a:hover {
+  color: #00bcd4;
+}
+
+/* File Explorer Tree Styles */
+.file-tree {
+    padding: 20px;
+    width: 300px;
+    background-color: #1e293b;
+    overflow-y: auto;
+}
+
+.tree-node {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+
+.tree-node-content {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.tree-node-content:hover {
+    background-color: #334155;
+}
+
+.tree-node-icon {
+    margin-right: 8px;
+    color: #fbbf24;
+}
+
+.tree-node-icon.file-icon {
+    color: #94a3b8;
+}
+
+.tree-node-icon.notebook-icon {
+    color: #f59e0b;
+}
+
+.tree-node-label {
+    color: #e2e8f0;
+}
+
+.tree-children {
+    margin-left: 20px;
+    position: relative;
+}
+
+/* Vertical line for tree structure */
+.tree-children:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: 1px;
+    height: 100%;
+    background-color: #4b5563;
+}
+
+/* Horizontal line for tree items */
+.tree-node {
+    position: relative;
+}
+
+.tree-node:before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 10px;
+    height: 1px;
+    background-color: #4b5563;
+}
+
+/* First node doesn't need the horizontal line */
+.tree-root > .tree-node:before {
+    display: none;
+}
+
+/* File Explorer Container */
+.file-explorer {
+    display: flex;
+    min-height: calc(100vh - 200px);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.file-content {
+    flex-grow: 1;
+    background-color: #0f172a;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Notebook Styles */
+.notebook-cell {
+    background-color: #1e293b;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.cell-type {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+
+.code-input {
+    background-color: #0f172a;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.code-output {
+    background-color: #1e293b;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 3px solid #22d3ee;
+}
+
+ /* Custom styles to fix icon sizes */
+ .tree-node-icon {
+  font-size: 0.9rem; /* Smaller icons */
+  width: 1.2rem; /* Fixed width for alignment */
+}
+
+.file-explorer {
+  margin-top: 1rem; /* Reduce top margin since we removed the title */
+}
+
+/* Make the file content area take more space */
+.file-content {
+  flex: 3;
+}
+
+/* Make the file tree take less space */
+.file-tree {
+  flex: 1;
+}
+
+/* Custom file icons */
+.file-icon-python {
+  color: #3776AB; /* Python blue */
+}
+
+.file-icon-bash {
+  color: #4EAA25; /* Bash green */
+}

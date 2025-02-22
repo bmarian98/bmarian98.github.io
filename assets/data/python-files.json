@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "name": "courses",
+      "folders": [
+        {
+          "name": "bash",
+          "icon": "fa-terminal",
+          "files": [
+            {
+              "name": "first_script.sh",
+              "path": "courses/bash/first_script.sh",
+              "type": "script"
+            }
+          ]
+        },
+        {
+          "name": "python",
+          "icon": "fa-python",
+          "files": [
+            {
+              "name": "first.ipynb",
+              "path": "courses/python/first.ipynb",
+              "type": "notebook"
+            },
+            {
+              "name": "second.ipynb",
+              "path": "courses/python/second.ipynb",
+              "type": "notebook"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -27,9 +27,9 @@
     <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-    <script src="script.js" defer></script>
+    <script src="assets/js/script.js" defer></script>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="dark-mode" x-data="{ darkMode: true, showScrollTop: false }" :class="darkMode ? 'dark-mode' : 'light-mode'" @scroll.window="showScrollTop = window.scrollY > window.innerHeight">
 
@@ -50,6 +50,7 @@
                 <li><a href="#skills" class="hover:text-cyan-400">Skills</a></li>
                 <li><a href="#projects" class="hover:text-cyan-400">Projects</a></li>
                 <li><a href="#contact" class="hover:text-cyan-400">Contact</a></li>
+                <li><a href="python-explorer.html" class="hover:text-cyan-400">Python</a></li>
             </ul>
         </div>
     </nav>
@@ -63,7 +64,7 @@
                 Additionally, I have a keen interest in the DevOps field, aiming to understand how applications work and how to automate tasks. I started my journey into the Tech field as a C/C++ Developer and after transitioning to a DevOps role. Currently I am stuning Data Science on Data Camp.</p>
         </div>
         <div class="flex-shrink-0">
-            <img src="images/image_profile.png" alt="Profile Image" class="w-96 h-96 rounded-full border-4 border-cyan-400 shadow-lg">
+            <img src="assets/images/image_profile.png" alt="Profile Image" class="w-96 h-96 rounded-full border-4 border-cyan-400 shadow-lg">
         </div>
     </section>
 
@@ -94,13 +95,26 @@
     <!-- Projects - Grid -->
     <section id="projects" class="py-20 px-16">
         <h2 class="text-3xl font-bold text-center glow my-10">Projects</h2>
-        <div id="credly-grid-placeholder"> </div>
+        <div id="projects-videos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-5">
+        </div>
+<div id="projects-links-grid" class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-5"></div>        
     </section>
 
     <!-- Contact - Grid -->
     <section id="contact" class="py-20 px-16">
         <h2 class="text-3xl font-bold text-center glow my-10">Contact</h2>
-        <div id="credly-grid-placeholder"> </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> Breaza, Suceava, Romania</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:your-email@yahoo.com">bodnarmarian837@yahoo.com</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:your-email@gmail.com">bodnarmarian14@gmail.com</a></p>
+            </div>
+            <div class="contact-icons">
+                <a href="www.linkedin.com/in/marian-bodnar-411948261" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://gitlab.com/devops-project23" target="_blank"><i class="fab fa-gitlab"></i></a>
+                <a href="https://github.com/bmarian98" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
     </section>
 
     <!-- Light/Dark Mode Toggle Button -->
@@ -118,5 +132,5 @@
         <p class="text-gray-400" id="current-year"></p>
     </footer>
 
-</body>
+    </body>
 </html>
