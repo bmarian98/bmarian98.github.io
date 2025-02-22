@@ -167,6 +167,75 @@ function generateSkillsGrid(skills, placeholderId) {
   document.getElementById(placeholderId).appendChild(gridContainer);
 }
 
+// Function to generate projects grid with YouTube videos and project links
+function generateProjectsGrid(videoUrls, projectLinks, placeholderId) {
+    const projectsGrid = document.getElementById(placeholderId);
+
+    videoUrls.forEach((videoUrl, index) => {
+        const div = document.createElement('div');
+        div.className = 'project-item';
+        div.innerHTML = `
+            <iframe width="100%" height="315" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <ul class="project-links mt-8">
+                ${projectLinks[index].map(link => `
+                    <li>
+                        <a href="${link.url}" target="_blank">
+                            <i class="fab ${link.icon}"></i> ${link.text}
+                        </a>
+                    </li>
+                `).join('')}
+            </ul>
+        `;
+        projectsGrid.appendChild(div);
+    });
+}
+
+// Function to generate projects grid with YouTube videos
+function generateProjectsVideos(videoUrls, placeholderId) {
+    const projectsGrid = document.getElementById(placeholderId);
+
+    videoUrls.forEach(videoUrl => {
+        const div = document.createElement('div');
+        div.className = 'project-item';
+        div.innerHTML = `
+            <iframe width="100%" height="315" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        `;
+        projectsGrid.appendChild(div);
+    });
+}
+
+// Function to generate project links
+function generateProjectLinks(projectLinks, placeholderId) {
+    const projectsGrid = document.getElementById(placeholderId);
+
+    projectLinks.forEach(link => {
+        const div = document.createElement('div');
+        div.className = 'project-link-item';
+        div.innerHTML = `
+            <a href="${link.url}" target="_blank">
+                <i class="fab ${link.icon}"></i> ${link.text}
+            </a>
+        `;
+        projectsGrid.appendChild(div);
+    });
+}
+
+// List of YouTube video URLs
+const videoUrls = [
+    "https://www.youtube.com/embed/cdDyN_a_TII",
+    "https://www.youtube.com/embed/2nzw8ehkXJE",
+    // Add more video URLs as needed
+];
+
+// List of project links
+const projectLinks = [
+    { url: "https://github.com/bmarian98/terraform_5", text: "AWS Terraform", icon: "fa-github" },
+    { url: "https://gitlab.com/devops-project23/frontend", text: "Backend", icon: "fa-gitlab" },
+    { url: "https://gitlab.com/devops-project23/backend", text: "Frontend", icon: "fa-gitlab" },
+    { url: "https://gitlab.com/devops-project23/infrastructure", text: "Infrastructure", icon: "fa-gitlab" },
+    // Add more project links as needed
+];
+
 // Generate timelines
 generateTimeline(workTimelineData, 'timeline-placeholder');
 generateTimeline(studiesTimelineData, 'studies-timeline-placeholder');
@@ -176,3 +245,11 @@ generateCredlyGrid(credlyEmbedCodes, 'credly-grid-placeholder');
 
 // Generate skills grid
 generateSkillsGrid(skills, 'skills-grid-placeholder');
+
+// Generate projects grid
+
+// Generate projects grid with videos
+generateProjectsVideos(videoUrls, 'projects-videos-grid');
+
+// Generate project links
+generateProjectLinks(projectLinks, 'projects-links-grid');
