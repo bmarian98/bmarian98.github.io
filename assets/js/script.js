@@ -626,6 +626,92 @@ function escapeHtml(unsafe) {
         .replace(/'/g, "&#039;");
 }
 
+// Function to handle active link state for all pages
+function setupNavLinkHighlighting() {
+    const navLinks = document.querySelectorAll('.nav-links a, ul a');
+    const currentPath = window.location.pathname;
+    
+    // If we're on the index page (or root path)
+    if (currentPath.includes('index.html') || currentPath.endsWith('/')) {
+        // For index.html, handle scroll-based highlighting
+        const sections = document.querySelectorAll('section[id]');
+        
+        // Initially set Home as active if we're at the top
+        if (window.scrollY < 100) {
+            navLinks.forEach(link => link.classList.remove('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400'));
+            const homeLink = document.querySelector('ul a[href="#"]');
+            if (homeLink) {
+                homeLink.classList.add('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+            }
+        }
+        
+        // Update active link on scroll
+        function highlightNavLink() {
+            const scrollY = window.pageYOffset;
+            
+            // Remove active class from all links
+            navLinks.forEach(link => {
+                link.classList.remove('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+            });
+            
+            // Check if we're at the top (home section)
+            if (scrollY < 100) {
+                const homeLink = document.querySelector('ul a[href="#"]');
+                if (homeLink) {
+                    homeLink.classList.add('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+                }
+                return;
+            }
+            
+            // Find the current section in view
+            let currentSection = null;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            // Highlight the corresponding nav link
+            if (currentSection) {
+                const activeLink = document.querySelector(`ul a[href="#${currentSection}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+                }
+            }
+        }
+        
+        // Add click event to nav links to set active class
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Only for links to sections on the same page
+                if (this.getAttribute('href').startsWith('#')) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+                    });
+                    this.classList.add('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+                }
+            });
+        });
+        
+        window.addEventListener('scroll', highlightNavLink);
+        highlightNavLink(); // Run once on page load
+    } else {
+        // For other pages, highlight based on current page
+        navLinks.forEach(link => {
+            const linkPath = link.getAttribute('href');
+            if (linkPath === currentPath || 
+                (currentPath.includes(linkPath) && linkPath !== '#' && linkPath !== '/')) {
+                link.classList.add('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+            } else {
+                link.classList.remove('active', 'text-cyan-400', 'border-b-2', 'border-cyan-400');
+            }
+        });
+    }
+}
+
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM content loaded"); // Debug log
@@ -686,4 +772,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("File tree element found, loading tree"); // Debug log
         loadFileTree();
     }
+    
+    // Setup navigation link highlighting
+    setupNavLinkHighlighting();
 });

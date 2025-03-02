@@ -451,3 +451,25 @@ body {
 .file-icon-bash {
   color: #4EAA25; /* Bash green */
 }
+
+/* Navigation link styles */
+nav ul a {
+  position: relative;
+  transition: color 0.3s;
+  padding-bottom: 5px;
+}
+
+nav ul a:hover {
+  color: #00f0ff;
+}
+
+nav ul a.active {
+  color: #00f0ff;
+  border-bottom: 2px solid #00f0ff;
+}
+
+/* Remove the hardcoded active state from HTML */
+nav ul a[href="#"].active {
+  color: #00f0ff;
+  border-bottom: 2px solid #00f0ff;
+}
