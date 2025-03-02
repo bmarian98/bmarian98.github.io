@@ -155,6 +155,18 @@ function generateTimeline(timelineData, placeholderId) {
     setTimeout(() => {
         drawEncapsulatingPath(timelineContainer);
     }, 100);
+    
+    // Update path when theme changes
+    document.addEventListener('x-theme-changed', function() {
+        // Remove old path
+        const oldPath = svg.querySelector('path');
+        if (oldPath) {
+            svg.removeChild(oldPath);
+        }
+        
+        // Draw new path with appropriate color
+        drawEncapsulatingPath(timelineContainer);
+    });
 }
 
 // Function to draw the encapsulating path
@@ -231,14 +243,23 @@ function drawEncapsulatingPath(container) {
     
     path.setAttribute("d", pathData);
     path.setAttribute("fill", "none");
-    path.setAttribute("stroke", "#00f0ff");
+    
+    // Set color based on theme
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    if (isDarkMode) {
+        path.setAttribute("stroke", "#00f0ff");
+    } else {
+        path.setAttribute("stroke", "#0099cc");
+    }
+    
     path.setAttribute("stroke-width", "3");
     path.setAttribute("stroke-linecap", "round");
     path.setAttribute("stroke-linejoin", "round");
     
     // Add glow effect
+    const filterId = `glow-${Math.random().toString(36).substring(2, 9)}`; // Unique ID
     const filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
-    filter.setAttribute("id", "glow");
+    filter.setAttribute("id", filterId);
     
     const feGaussianBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
     feGaussianBlur.setAttribute("stdDeviation", "4");
@@ -252,7 +273,7 @@ function drawEncapsulatingPath(container) {
     filter.appendChild(feComposite);
     
     svg.appendChild(filter);
-    path.setAttribute("filter", "url(#glow)");
+    path.setAttribute("filter", `url(#${filterId})`);
     
     // Add animation
     const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
@@ -912,4 +933,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup navigation link highlighting
     setupNavLinkHighlighting();
+
+    // Listen for theme toggle
+    const themeToggle = document.querySelector('[x-data]');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            // Dispatch custom event when theme changes
+            setTimeout(() => {
+                document.dispatchEvent(new CustomEvent('x-theme-changed'));
+            }, 50);
+        });
+    }
 });

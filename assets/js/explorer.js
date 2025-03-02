@@ -38,8 +38,8 @@ const defaultFileStructure = {
                     "icon": "fa-keyboard",
                     "files": [
                         {
-                            "name": "vim_commands.md",
-                            "path": "courses/vim/vim_commands.md",
+                            "name": "commands.md",
+                            "path": "courses/vim/commands.md",
                             "type": "markdown"
                         }
                     ]

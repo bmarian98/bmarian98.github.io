@@ -70,8 +70,8 @@ body {
   justify-content: center;
 }
 
-/* Timeline card - even larger size */
-.timeline-card {
+/* Timeline card - Dark Mode */
+.dark-mode .timeline-card {
   background: rgba(22, 22, 22, 0.95);
   border-radius: 12px;
   padding: 40px;
@@ -81,17 +81,39 @@ body {
   max-width: 800px;
   margin: 0 auto;
   border-left: 3px solid #00f0ff;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: all 0.3s ease;
   z-index: 2;
+  backdrop-filter: blur(10px);
 }
 
-.timeline-card:hover {
+.dark-mode .timeline-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 240, 255, 0.3);
 }
 
-/* Timeline icon - replacing the bullet */
-.timeline-icon {
+/* Timeline card - Light Mode */
+.light-mode .timeline-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-left: 3px solid #0099cc;
+  transition: all 0.3s ease;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+}
+
+.light-mode .timeline-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 153, 204, 0.2);
+}
+
+/* Timeline icon - Dark Mode */
+.dark-mode .timeline-icon {
   position: absolute;
   width: 50px;
   height: 50px;
@@ -105,6 +127,35 @@ body {
   font-size: 20px;
   box-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
   z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .timeline-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.9);
+}
+
+/* Timeline icon - Light Mode */
+.light-mode .timeline-icon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #0099cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0099cc;
+  font-size: 20px;
+  box-shadow: 0 0 15px rgba(0, 153, 204, 0.5);
+  z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.light-mode .timeline-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 153, 204, 0.7);
 }
 
 /* Position icons alternating left/right */
@@ -120,6 +171,14 @@ body {
   transform: translateY(-50%);
 }
 
+.timeline-item:nth-child(odd) .timeline-icon:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.timeline-item:nth-child(even) .timeline-icon:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
 /* The path container */
 .timeline-path {
   position: absolute;
@@ -131,35 +190,83 @@ body {
   pointer-events: none;
 }
 
-/* Card content styling */
-.timeline-card h3 {
+/* Card content styling - Dark Mode */
+.dark-mode .timeline-card h3 {
   color: #00f0ff;
   font-size: 1.8rem;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.timeline-card .company {
+.dark-mode .timeline-card .company {
   color: #ffffff;
   font-size: 1.4rem;
   margin-bottom: 12px;
 }
 
-.timeline-card .period {
+.dark-mode .timeline-card .period {
   color: #94a3b8;
   font-size: 1.1rem;
   margin-bottom: 25px;
 }
 
-.timeline-card .description {
+.dark-mode .timeline-card .description {
   color: #e2e8f0;
   font-size: 1.1rem;
   line-height: 1.8;
 }
 
+/* Card content styling - Light Mode */
+.light-mode .timeline-card h3 {
+  color: #0099cc;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.light-mode .timeline-card .company {
+  color: #333333;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.light-mode .timeline-card .period {
+  color: #666666;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.light-mode .timeline-card .description {
+  color: #444444;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Card decorative elements */
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.dark-mode .timeline-card::before {
+  background: #00f0ff;
+  box-shadow: 0 0 20px 5px rgba(0, 240, 255, 0.5);
+}
+
+.light-mode .timeline-card::before {
+  background: #0099cc;
+  box-shadow: 0 0 20px 5px rgba(0, 153, 204, 0.3);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
-.timeline-card {
+  .timeline-card {
     padding: 30px;
   }
   
