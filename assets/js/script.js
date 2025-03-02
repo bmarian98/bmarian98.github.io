@@ -96,36 +96,173 @@ const skills = [
     { icon: 'devicon-amazonwebservices-plain-wordmark', text: 'AWS' }
 ];
 
-// Function to generate timeline
+// Function to generate vertical stepper timeline with encapsulating path
 function generateTimeline(timelineData, placeholderId) {
     const timelineContainer = document.createElement('div');
-    timelineContainer.className = 'relative timeline-container';
-
-    const timelineLine = document.createElement('div');
-    timelineLine.className = 'timeline';
-    timelineContainer.appendChild(timelineLine);
-
+    timelineContainer.className = 'timeline-container';
+    
+    // Create SVG for the path
+    const timelinePath = document.createElement('div');
+    timelinePath.className = 'timeline-path';
+    
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.style.position = "absolute";
+    svg.style.top = "0";
+    svg.style.left = "0";
+    
+    timelinePath.appendChild(svg);
+    timelineContainer.appendChild(timelinePath);
+    
+    // Create timeline items
     timelineData.forEach((item, index) => {
+        // Create timeline item
+        const timelineItem = document.createElement('div');
+        timelineItem.className = 'timeline-item';
+        
+        // Create timeline icon (replacing bullet)
         const timelineIcon = document.createElement('div');
         timelineIcon.className = 'timeline-icon';
         timelineIcon.innerHTML = `<i class="${item.icon}"></i>`;
-        timelineIcon.style.top = `${(index + 1) * (100 / (timelineData.length + 1))}%`;
-        timelineContainer.appendChild(timelineIcon);
-
-        const timelineItem = document.createElement('div');
-        timelineItem.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'}`;
-        timelineItem.innerHTML = `
-            <div class="timeline-card my-5">
-                <h3 class="text-cyan-400 font-bold">${item.title}</h3>
-                <p? class="text-gray-400">${item.company || item.institution}</p>
-                <p? class="text-gray-400">${item.period}</p?>
-                <p class="text-sm text-gray-500 my-5">${item.description}</p>
-            </div>
+        timelineItem.appendChild(timelineIcon);
+        
+        // Create timeline card
+        const timelineCard = document.createElement('div');
+        timelineCard.className = 'timeline-card';
+        
+        // Add card content
+        let cardContent = `
+            <h3>${item.title}</h3>
+            <div class="company">${item.company || item.institution}</div>
+            <div class="period">${item.period}</div>
+            <div class="description">${item.description}</div>
         `;
+        
+        timelineCard.innerHTML = cardContent;
+        timelineItem.appendChild(timelineCard);
+        
+        // Add to container
         timelineContainer.appendChild(timelineItem);
     });
+    
+    // Clear and append to placeholder
+    const placeholder = document.getElementById(placeholderId);
+    placeholder.innerHTML = '';
+    placeholder.appendChild(timelineContainer);
+    
+    // Draw the encapsulating path after elements are in the DOM
+    setTimeout(() => {
+        drawEncapsulatingPath(timelineContainer);
+    }, 100);
+}
 
-    document.getElementById(placeholderId).appendChild(timelineContainer);
+// Function to draw the encapsulating path
+function drawEncapsulatingPath(container) {
+    const items = container.querySelectorAll('.timeline-item');
+    if (items.length === 0) return;
+    
+    const svg = container.querySelector('svg');
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    
+    // Get container dimensions
+    const containerRect = container.getBoundingClientRect();
+    
+    // Build the path data
+    let pathData = '';
+    
+    items.forEach((item, index) => {
+        const icon = item.querySelector('.timeline-icon');
+        const card = item.querySelector('.timeline-card');
+        
+        if (!icon || !card) return;
+        
+        const iconRect = icon.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        
+        // Calculate positions relative to the container
+        const iconX = iconRect.left + iconRect.width/2 - containerRect.left;
+        const iconY = iconRect.top + iconRect.height/2 - containerRect.top;
+        
+        const cardTop = cardRect.top - containerRect.top;
+        const cardBottom = cardRect.bottom - containerRect.top;
+        const cardLeft = cardRect.left - containerRect.left;
+        const cardRight = cardRect.right - containerRect.left;
+        
+        if (index === 0) {
+            // Start path at the first icon
+            pathData = `M ${iconX} ${iconY}`;
+            
+            // For first item, draw line to the card
+            if (index % 2 === 0) { // Left icon
+                pathData += ` L ${cardLeft} ${iconY}`;
+            } else { // Right icon
+                pathData += ` L ${cardRight} ${iconY}`;
+            }
+        } else {
+            // Connect from previous card to current icon
+            const prevCard = items[index-1].querySelector('.timeline-card');
+            const prevCardRect = prevCard.getBoundingClientRect();
+            const prevCardBottom = prevCardRect.bottom - containerRect.top;
+            
+            // Draw vertical line down from previous card
+            pathData += ` L ${iconX} ${prevCardBottom + 20}`;
+            
+            // Draw line to current icon
+            pathData += ` L ${iconX} ${iconY}`;
+            
+            // Draw line to current card
+            if (index % 2 === 0) { // Left icon
+                pathData += ` L ${cardLeft} ${iconY}`;
+            } else { // Right icon
+                pathData += ` L ${cardRight} ${iconY}`;
+            }
+        }
+        
+        // Draw line around the card (partial encapsulation)
+        if (index % 2 === 0) { // Left icon
+            // Draw line along bottom of card
+            pathData += ` L ${cardLeft + 20} ${cardBottom}`;
+        } else { // Right icon
+            // Draw line along bottom of card
+            pathData += ` L ${cardRight - 20} ${cardBottom}`;
+        }
+    });
+    
+    path.setAttribute("d", pathData);
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "#00f0ff");
+    path.setAttribute("stroke-width", "3");
+    path.setAttribute("stroke-linecap", "round");
+    path.setAttribute("stroke-linejoin", "round");
+    
+    // Add glow effect
+    const filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+    filter.setAttribute("id", "glow");
+    
+    const feGaussianBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+    feGaussianBlur.setAttribute("stdDeviation", "4");
+    feGaussianBlur.setAttribute("result", "blur");
+    filter.appendChild(feGaussianBlur);
+    
+    const feComposite = document.createElementNS("http://www.w3.org/2000/svg", "feComposite");
+    feComposite.setAttribute("in", "SourceGraphic");
+    feComposite.setAttribute("in2", "blur");
+    feComposite.setAttribute("operator", "over");
+    filter.appendChild(feComposite);
+    
+    svg.appendChild(filter);
+    path.setAttribute("filter", "url(#glow)");
+    
+    // Add animation
+    const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+    animate.setAttribute("attributeName", "stroke-opacity");
+    animate.setAttribute("values", "0.6;1;0.6");
+    animate.setAttribute("dur", "3s");
+    animate.setAttribute("repeatCount", "indefinite");
+    path.appendChild(animate);
+    
+    svg.appendChild(path);
 }
 
 // Function to generate Credly grid
