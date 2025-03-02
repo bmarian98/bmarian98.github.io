@@ -262,3 +262,58 @@ pre.output-result {
         font-size: 0.7rem;
     }
 }
+
+/* Add styles for markdown content */
+.markdown-body {
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+.markdown-body h1, 
+.markdown-body h2, 
+.markdown-body h3, 
+.markdown-body h4 {
+    color: #64ffda;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+    padding-bottom: 0.3em;
+}
+
+.markdown-body table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.markdown-body th,
+.markdown-body td {
+    border: 1px solid #4a5568;
+    padding: 0.5em 1em;
+}
+
+.markdown-body th {
+    background-color: #2d3748;
+    font-weight: bold;
+}
+
+.markdown-body code {
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+.markdown-body pre {
+    background-color: #1a202c;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.markdown-body pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.markdown-icon {
+    color: #9ca3af; /* Gray color for markdown files */
+}

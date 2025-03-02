@@ -32,6 +32,17 @@ const defaultFileStructure = {
                             "type": "notebook"
                         }
                     ]
+                },
+                {
+                    "name": "vim",
+                    "icon": "fa-keyboard",
+                    "files": [
+                        {
+                            "name": "vim_commands.md",
+                            "path": "courses/vim/vim_commands.md",
+                            "type": "markdown"
+                        }
+                    ]
                 }
             ]
         }
@@ -139,6 +150,8 @@ function createFileNode(file, folderIcon, folderName) {
         fileIcon.className = 'fab fa-python tree-node-icon file-icon-python text-sm';
     } else if (file.type === 'script' && folderName === 'bash' && folderIcon === 'fa-terminal') {
         fileIcon.className = 'fas fa-terminal tree-node-icon file-icon-bash text-sm';
+    } else if (file.type === 'markdown') {
+        fileIcon.className = 'fas fa-file-alt tree-node-icon markdown-icon text-sm';
     } else if (file.type === 'notebook') {
         fileIcon.className = 'fas fa-book-open tree-node-icon notebook-icon text-sm';
     } else if (file.type === 'script') {
@@ -161,6 +174,8 @@ function createFileNode(file, folderIcon, folderName) {
             loadNotebook(file.path);
         } else if (file.type === 'script') {
             loadScript(file.path);
+        } else if (file.type === 'markdown') {
+            loadMarkdown(file.path);
         } else {
             loadPythonFile(file.path);
         }
@@ -652,6 +667,216 @@ function loadPythonFile(path) {
                 </div>
             `;
         });
+}
+
+// Add a new function to load markdown content
+function loadMarkdown(path) {
+    const contentContainer = document.getElementById('file-content');
+    if (!contentContainer) return;
+    
+    // Remove 'courses/' from the displayed path
+    const displayPath = path.replace(/^courses\//, '');
+    
+    contentContainer.innerHTML = `
+        <div class="p-4">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-file-alt text-cyan-400 mr-2 text-sm"></i>
+                <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
+            </div>
+            <div class="loading-indicator">
+                <i class="fas fa-spinner fa-spin mr-2 text-sm"></i>
+                Loading markdown...
+            </div>
+        </div>
+    `;
+    
+    fetch(path)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Could not load markdown file');
+            }
+            return response.text();
+        })
+        .then(data => {
+            contentContainer.innerHTML = `
+                <div class="p-4">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-file-alt text-cyan-400 mr-2 text-sm"></i>
+                        <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
+                    </div>
+                    <div class="markdown-content">
+                        <div class="relative">
+                            <button class="copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs" data-code="${encodeURIComponent(data)}">
+                                <i class="fas fa-copy mr-1"></i> Copy All
+                            </button>
+                            <div class="markdown-body p-4 bg-gray-800 rounded">${renderMarkdownToHTML(data)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listener to copy button
+            const copyButton = contentContainer.querySelector('.copy-button');
+            if (copyButton) {
+                copyButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    const code = decodeURIComponent(this.getAttribute('data-code'));
+                    
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+                        this.classList.add('bg-green-700');
+                        this.classList.remove('bg-gray-700');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.classList.remove('bg-green-700');
+                            this.classList.add('bg-gray-700');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                        this.innerHTML = '<i class="fas fa-times mr-1"></i> Failed';
+                        this.classList.add('bg-red-700');
+                        this.classList.remove('bg-gray-700');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy All';
+                            this.classList.remove('bg-red-700');
+                            this.classList.add('bg-gray-700');
+                        }, 2000);
+                    });
+                });
+            }
+            
+            // Add copy buttons to code blocks in the markdown
+            addCopyButtonsToCodeBlocks();
+        })
+        .catch(error => {
+            contentContainer.innerHTML = `
+                <div class="p-4">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                        <h3 class="text-xl font-semibold">Error Loading Markdown</h3>
+                    </div>
+                    <p class="text-red-400">${error.message}</p>
+                    <p class="mt-4">Please make sure the file exists and is accessible.</p>
+                </div>
+            `;
+        });
+}
+
+// Simple function to convert markdown to HTML
+function renderMarkdownToHTML(markdown) {
+    // This is a very basic markdown renderer
+    // For a real implementation, consider using a library like marked.js
+    
+    // Convert headers
+    let html = markdown
+        .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mt-6 mb-4">$1</h1>')
+        .replace(/^## (.*$)/gm, '<h2 class="text-xl font-bold mt-5 mb-3">$1</h2>')
+        .replace(/^### (.*$)/gm, '<h3 class="text-lg font-bold mt-4 mb-2">$1</h3>')
+        .replace(/^#### (.*$)/gm, '<h4 class="text-base font-bold mt-3 mb-2">$1</h4>');
+    
+    // Convert tables
+    html = html.replace(/\|(.+)\|/g, function(match) {
+        const cells = match.split('|').filter(cell => cell.trim() !== '');
+        return '<tr>' + cells.map(cell => `<td class="border border-gray-600 px-4 py-2">${cell.trim()}</td>`).join('') + '</tr>';
+    });
+    
+    // Identify table sections
+    html = html.replace(/<tr>(.+)<\/tr>\s*<tr>(-+\|)+<\/tr>/g, function(match, headerRow) {
+        return '<table class="min-w-full bg-gray-700 rounded my-4"><thead class="bg-gray-800">' + 
+               headerRow + '</thead><tbody>';
+    });
+    
+    // Close tables
+    html = html.replace(/<tbody>(.+?)(?=<h|$)/gs, function(match, tableBody) {
+        return '<tbody>' + tableBody + '</tbody></table>';
+    });
+    
+    // Convert bold
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    
+    // Convert italic
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    
+    // Convert code blocks
+    html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, function(match, language, code) {
+        const lang = language || 'plaintext';
+        return `<pre class="relative bg-gray-900 rounded p-4 my-4"><code class="language-${lang}">${code}</code></pre>`;
+    });
+    
+    // Convert inline code
+    html = html.replace(/`([^`]+)`/g, '<code class="bg-gray-900 px-1 rounded">$1</code>');
+    
+    // Convert lists
+    html = html.replace(/^\d+\. (.*$)/gm, '<li class="ml-6 list-decimal">$1</li>');
+    html = html.replace(/^- (.*$)/gm, '<li class="ml-6 list-disc">$1</li>');
+    
+    // Group list items
+    html = html.replace(/(<li[^>]*>.*<\/li>\n)+/g, function(match) {
+        if (match.includes('list-decimal')) {
+            return '<ol class="my-4">' + match + '</ol>';
+        } else {
+            return '<ul class="my-4">' + match + '</ul>';
+        }
+    });
+    
+    // Convert paragraphs
+    html = html.replace(/^(?!<[hou]).+$/gm, function(match) {
+        if (match.trim() === '') return '';
+        return '<p class="my-3">' + match + '</p>';
+    });
+    
+    return html;
+}
+
+// Function to add copy buttons to code blocks in markdown
+function addCopyButtonsToCodeBlocks() {
+    const codeBlocks = document.querySelectorAll('.markdown-body pre');
+    
+    codeBlocks.forEach(block => {
+        const code = block.querySelector('code');
+        if (code) {
+            const copyButton = document.createElement('button');
+            copyButton.className = 'copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs';
+            copyButton.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
+            
+            copyButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                const codeText = code.textContent;
+                
+                navigator.clipboard.writeText(codeText).then(() => {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+                    this.classList.add('bg-green-700');
+                    this.classList.remove('bg-gray-700');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.classList.remove('bg-green-700');
+                        this.classList.add('bg-gray-700');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    this.innerHTML = '<i class="fas fa-times mr-1"></i> Failed';
+                    this.classList.add('bg-red-700');
+                    this.classList.remove('bg-gray-700');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
+                        this.classList.remove('bg-red-700');
+                        this.classList.add('bg-gray-700');
+                    }, 2000);
+                });
+            });
+            
+            block.style.position = 'relative';
+            block.appendChild(copyButton);
+        }
+    });
 }
 
 // Initialize the file tree when the page loads
