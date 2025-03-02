@@ -72,8 +72,9 @@ function createFolderNode(folder) {
     folderContent.className = 'tree-node-content';
     folderContent.setAttribute('data-expanded', 'false');
     
+    // Always use folder icon for all folders, regardless of custom icon attribute
     const folderIcon = document.createElement('i');
-    folderIcon.className = 'fas fa-folder tree-node-icon';
+    folderIcon.className = 'fas fa-folder tree-node-icon text-sm';
     
     const folderLabel = document.createElement('span');
     folderLabel.className = 'tree-node-label';
@@ -104,7 +105,17 @@ function createFolderNode(folder) {
     if (folder.files && folder.files.length > 0) {
         folder.files.forEach(file => {
             // Pass the folder's icon to the file creation function
-            const fileNode = createFileNode(file, folder.icon, folder.name);
+            // Still use custom icons for files, just not for folders
+            let customIconType = '';
+            if (folder.icon) {
+                customIconType = folder.icon;
+            } else if (folder.name.toLowerCase() === 'python') {
+                customIconType = 'fa-python';
+            } else if (folder.name.toLowerCase() === 'bash') {
+                customIconType = 'fa-terminal';
+            }
+            
+            const fileNode = createFileNode(file, customIconType, folder.name);
             folderChildren.appendChild(fileNode);
         });
     }
@@ -125,15 +136,15 @@ function createFileNode(file, folderIcon, folderName) {
     
     // Set icon based on file type or parent folder's icon
     if (file.type === 'notebook' && folderName === 'python' && folderIcon === 'fa-python') {
-        fileIcon.className = 'fab fa-python tree-node-icon file-icon-python';
+        fileIcon.className = 'fab fa-python tree-node-icon file-icon-python text-sm';
     } else if (file.type === 'script' && folderName === 'bash' && folderIcon === 'fa-terminal') {
-        fileIcon.className = 'fas fa-terminal tree-node-icon file-icon-bash';
+        fileIcon.className = 'fas fa-terminal tree-node-icon file-icon-bash text-sm';
     } else if (file.type === 'notebook') {
-        fileIcon.className = 'fas fa-book-open tree-node-icon notebook-icon';
+        fileIcon.className = 'fas fa-book-open tree-node-icon notebook-icon text-sm';
     } else if (file.type === 'script') {
-        fileIcon.className = 'fas fa-file-code tree-node-icon script-icon';
+        fileIcon.className = 'fas fa-file-code tree-node-icon script-icon text-sm';
     } else {
-        fileIcon.className = 'fas fa-file tree-node-icon file-icon';
+        fileIcon.className = 'fas fa-file tree-node-icon file-icon text-sm';
     }
     
     const fileLabel = document.createElement('span');
@@ -148,39 +159,19 @@ function createFileNode(file, folderIcon, folderName) {
     fileContent.addEventListener('click', function() {
         if (file.type === 'notebook') {
             loadNotebook(file.path);
-            
-            // On mobile, scroll to the content area
-            if (window.innerWidth < 768) {
-                const contentArea = document.getElementById('file-content');
-                if (contentArea) {
-                    setTimeout(() => {
-                        contentArea.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                }
-            }
         } else if (file.type === 'script') {
             loadScript(file.path);
-            
-            // On mobile, scroll to the content area
-            if (window.innerWidth < 768) {
-                const contentArea = document.getElementById('file-content');
-                if (contentArea) {
-                    setTimeout(() => {
-                        contentArea.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                }
-            }
         } else {
             loadPythonFile(file.path);
-            
-            // On mobile, scroll to the content area
-            if (window.innerWidth < 768) {
-                const contentArea = document.getElementById('file-content');
-                if (contentArea) {
-                    setTimeout(() => {
-                        contentArea.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                }
+        }
+        
+        // On mobile, scroll to the content area
+        if (window.innerWidth < 768) {
+            const contentArea = document.getElementById('file-content');
+            if (contentArea) {
+                setTimeout(() => {
+                    contentArea.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
             }
         }
     });
@@ -192,12 +183,13 @@ function createFileNode(file, folderIcon, folderName) {
 function toggleTreeNode(nodeContent) {
     const isExpanded = nodeContent.getAttribute('data-expanded') === 'true';
     const node = nodeContent.parentElement;
-    const icon = nodeContent.querySelector('i');
+    const icon = nodeContent.querySelector('i.tree-node-icon');
     
     if (isExpanded) {
         // Collapse
         nodeContent.setAttribute('data-expanded', 'false');
-        icon.className = 'fas fa-folder tree-node-icon';
+        // Always use folder icon when collapsed
+        icon.className = 'fas fa-folder tree-node-icon text-sm';
         
         // Find and hide children container
         const childrenContainer = node.querySelector('.tree-children');
@@ -207,7 +199,8 @@ function toggleTreeNode(nodeContent) {
     } else {
         // Expand
         nodeContent.setAttribute('data-expanded', 'true');
-        icon.className = 'fas fa-folder-open tree-node-icon';
+        // Always use folder-open icon when expanded
+        icon.className = 'fas fa-folder-open tree-node-icon text-sm';
         
         // Find and show children container
         const childrenContainer = node.querySelector('.tree-children');
@@ -222,14 +215,18 @@ function loadNotebook(path) {
     const contentContainer = document.getElementById('file-content');
     if (!contentContainer) return;
     
+    // Remove 'courses/' from the displayed path
+    const displayPath = path.replace(/^courses\//, '');
+    
     contentContainer.innerHTML = `
         <div class="p-4">
             <div class="flex items-center mb-4">
-                <i class="fas fa-book-open text-cyan-400 mr-2"></i>
-                <h3 class="text-xl font-semibold break-all">${path}</h3>
+                <i class="fas fa-book-open text-cyan-400 mr-2 text-sm"></i> <!-- Smaller icon -->
+                <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
             </div>
             <div class="loading-indicator">
-                <i class="fas fa-spinner fa-spin mr-2"></i> Loading notebook...
+                <i class="fas fa-spinner fa-spin mr-2 text-sm"></i> <!-- Smaller icon -->
+                Loading notebook...
             </div>
         </div>
     `;
@@ -260,11 +257,14 @@ function loadNotebook(path) {
 
 // Function to render notebook content
 function renderNotebook(notebook, container, path) {
+    // Remove 'courses/' from the displayed path
+    const displayPath = path.replace(/^courses\//, '');
+    
     let notebookHtml = `
         <div class="p-4">
             <div class="flex items-center mb-4">
-                <i class="fas fa-book-open text-cyan-400 mr-2"></i>
-                <h3 class="text-xl font-semibold break-all">${path}</h3>
+                <i class="fas fa-book-open text-cyan-400 mr-2 text-sm"></i> <!-- Smaller icon -->
+                <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
             </div>
             <div class="notebook-metadata mb-4">
                 <p><strong>Kernel:</strong> ${notebook.metadata?.kernelspec?.name || 'Not specified'}</p>
@@ -373,14 +373,18 @@ function loadScript(path) {
     const contentContainer = document.getElementById('file-content');
     if (!contentContainer) return;
     
+    // Remove 'courses/' from the displayed path
+    const displayPath = path.replace(/^courses\//, '');
+    
     contentContainer.innerHTML = `
         <div class="p-4">
             <div class="flex items-center mb-4">
-                <i class="fas fa-terminal text-cyan-400 mr-2"></i>
-                <h3 class="text-xl font-semibold break-all">${path}</h3>
+                <i class="fas fa-terminal text-cyan-400 mr-2 text-sm"></i> <!-- Smaller icon -->
+                <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
             </div>
             <div class="loading-indicator">
-                <i class="fas fa-spinner fa-spin mr-2"></i> Loading script...
+                <i class="fas fa-spinner fa-spin mr-2 text-sm"></i> <!-- Smaller icon -->
+                Loading script...
             </div>
         </div>
     `;
@@ -396,8 +400,8 @@ function loadScript(path) {
             contentContainer.innerHTML = `
                 <div class="p-4">
                     <div class="flex items-center mb-4">
-                        <i class="fas fa-terminal text-cyan-400 mr-2"></i>
-                        <h3 class="text-xl font-semibold break-all">${path}</h3>
+                        <i class="fas fa-terminal text-cyan-400 mr-2 text-sm"></i> <!-- Smaller icon -->
+                        <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
                     </div>
                     <pre class="language-bash"><code class="language-bash">${data}</code></pre>
                 </div>
@@ -484,7 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
         createTreeView(treeContainer, defaultFileStructure);
         
         // Then try to fetch the JSON file to update the tree
-        fetch('assets/data/python-files.json')
+        fetch('assets/data/courses.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Could not load file list');

@@ -73,7 +73,7 @@
 }
 
 .tree-node-icon {
-    font-size: 0.9rem;
+    font-size: 14px !important;
     width: 1.2rem;
     margin-right: 8px;
 }
@@ -199,4 +199,38 @@
 
 .file-explorer.tree-collapsed .tree-toggle-btn {
     left: 0;
+}
+
+/* Make all icons smaller */
+.tree-node-icon,
+.file-icon,
+.notebook-icon,
+.script-icon,
+.file-icon-python,
+.file-icon-bash {
+    font-size: 14px !important; /* Smaller icons in tree */
+}
+
+/* Make content area icons smaller */
+.file-content i.fas,
+.file-content i.fab,
+.notebook-cell i.fas,
+.notebook-cell i.fab,
+.cell-header i.fas,
+.cell-header i.fab {
+    font-size: 14px !important; /* Smaller icons in content */
+}
+
+/* Adjust cell type icons */
+.cell-type i {
+    font-size: 12px !important;
+}
+
+/* Make sure markdown and code icons are smaller */
+i.fa-paragraph,
+i.fa-code,
+i.fa-book-open,
+i.fa-terminal,
+i.fa-file-code {
+    font-size: 14px !important;
 }

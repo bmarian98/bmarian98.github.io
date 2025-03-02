@@ -387,10 +387,10 @@ function loadFileTree() {
     
     const loadingElement = document.getElementById('loading-tree');
     
-    console.log("Fetching python-files.json"); // Debug log
+    console.log("Fetching courses.json"); // Debug log
     
     // Fetch the JSON file that contains the file list
-    fetch('python-files.json')
+    fetch('courses.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Could not load file list');

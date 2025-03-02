@@ -12,7 +12,7 @@
 │   │   ├── script.js
 │   │   └── explorer.js
 │   └── data/
-│       └── python-files.json
+│       └── courses.json
 ├── courses/
 │   ├── bash/
 │   │   └── first_script.sh
