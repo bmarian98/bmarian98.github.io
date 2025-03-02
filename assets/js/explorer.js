@@ -255,6 +255,49 @@ function loadNotebook(path) {
         });
 }
 
+// Add this helper function to create a copy button
+function createCopyButton(codeElement) {
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs';
+    copyButton.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
+    
+    copyButton.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent event bubbling
+        
+        // Get the code text
+        const code = codeElement.textContent;
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(code).then(() => {
+            // Change button text temporarily
+            const originalText = copyButton.innerHTML;
+            copyButton.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+            copyButton.classList.add('bg-green-700');
+            copyButton.classList.remove('bg-gray-700');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+                copyButton.innerHTML = originalText;
+                copyButton.classList.remove('bg-green-700');
+                copyButton.classList.add('bg-gray-700');
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            copyButton.innerHTML = '<i class="fas fa-times mr-1"></i> Failed';
+            copyButton.classList.add('bg-red-700');
+            copyButton.classList.remove('bg-gray-700');
+            
+            setTimeout(() => {
+                copyButton.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
+                copyButton.classList.remove('bg-red-700');
+                copyButton.classList.add('bg-gray-700');
+            }, 2000);
+        });
+    });
+    
+    return copyButton;
+}
+
 // Function to render notebook content
 function renderNotebook(notebook, container, path) {
     // Remove 'courses/' from the displayed path
@@ -263,7 +306,7 @@ function renderNotebook(notebook, container, path) {
     let notebookHtml = `
         <div class="p-4">
             <div class="flex items-center mb-4">
-                <i class="fas fa-book-open text-cyan-400 mr-2 text-sm"></i> <!-- Smaller icon -->
+                <i class="fas fa-book-open text-cyan-400 mr-2 text-sm"></i>
                 <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
             </div>
             <div class="notebook-metadata mb-4">
@@ -303,11 +346,16 @@ function renderNotebook(notebook, container, path) {
                 // Code cell with source and outputs
                 notebookHtml += `<div class="cell-content code-content">`;
                 
-                // Source code
+                // Source code with copy button
                 if (cell.source) {
                     const source = Array.isArray(cell.source) ? cell.source.join('') : cell.source;
                     notebookHtml += `
-                        <pre class="language-python"><code class="language-python">${source}</code></pre>
+                        <div class="relative">
+                            <button class="copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs" data-code="${encodeURIComponent(source)}">
+                                <i class="fas fa-copy mr-1"></i> Copy
+                            </button>
+                            <pre class="language-python"><code class="language-python">${source}</code></pre>
+                        </div>
                     `;
                 }
                 
@@ -322,14 +370,24 @@ function renderNotebook(notebook, container, path) {
                         if (output.output_type === 'stream') {
                             const text = Array.isArray(output.text) ? output.text.join('') : output.text;
                             notebookHtml += `
-                                <pre class="output-stream p-2 bg-gray-800 rounded">${text}</pre>
+                                <div class="relative">
+                                    <button class="copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs" data-code="${encodeURIComponent(text)}">
+                                        <i class="fas fa-copy mr-1"></i> Copy
+                                    </button>
+                                    <pre class="output-stream p-2 bg-gray-800 rounded">${text}</pre>
+                                </div>
                             `;
                         } else if (output.output_type === 'execute_result' || output.output_type === 'display_data') {
                             if (output.data && output.data['text/plain']) {
                                 const text = Array.isArray(output.data['text/plain']) ? 
                                     output.data['text/plain'].join('') : output.data['text/plain'];
                                 notebookHtml += `
-                                    <pre class="output-result p-2 bg-gray-800 rounded">${text}</pre>
+                                    <div class="relative">
+                                        <button class="copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs" data-code="${encodeURIComponent(text)}">
+                                            <i class="fas fa-copy mr-1"></i> Copy
+                                        </button>
+                                        <pre class="output-result p-2 bg-gray-800 rounded">${text}</pre>
+                                    </div>
                                 `;
                             }
                         } else if (output.output_type === 'error') {
@@ -362,6 +420,44 @@ function renderNotebook(notebook, container, path) {
     
     container.innerHTML = notebookHtml;
     
+    // Add event listeners to copy buttons
+    const copyButtons = container.querySelectorAll('.copy-button');
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
+            
+            // Get the code from the data attribute
+            const code = decodeURIComponent(this.getAttribute('data-code'));
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(code).then(() => {
+                // Change button text temporarily
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+                this.classList.add('bg-green-700');
+                this.classList.remove('bg-gray-700');
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.classList.remove('bg-green-700');
+                    this.classList.add('bg-gray-700');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                this.innerHTML = '<i class="fas fa-times mr-1"></i> Failed';
+                this.classList.add('bg-red-700');
+                this.classList.remove('bg-gray-700');
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
+                    this.classList.remove('bg-red-700');
+                    this.classList.add('bg-gray-700');
+                }, 2000);
+            });
+        });
+    });
+    
     // Highlight code blocks
     if (typeof Prism !== 'undefined') {
         Prism.highlightAllUnder(container);
@@ -379,11 +475,11 @@ function loadScript(path) {
     contentContainer.innerHTML = `
         <div class="p-4">
             <div class="flex items-center mb-4">
-                <i class="fas fa-terminal text-cyan-400 mr-2 text-sm"></i> <!-- Smaller icon -->
+                <i class="fas fa-terminal text-cyan-400 mr-2 text-sm"></i>
                 <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
             </div>
             <div class="loading-indicator">
-                <i class="fas fa-spinner fa-spin mr-2 text-sm"></i> <!-- Smaller icon -->
+                <i class="fas fa-spinner fa-spin mr-2 text-sm"></i>
                 Loading script...
             </div>
         </div>
@@ -400,12 +496,51 @@ function loadScript(path) {
             contentContainer.innerHTML = `
                 <div class="p-4">
                     <div class="flex items-center mb-4">
-                        <i class="fas fa-terminal text-cyan-400 mr-2 text-sm"></i> <!-- Smaller icon -->
+                        <i class="fas fa-terminal text-cyan-400 mr-2 text-sm"></i>
                         <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
                     </div>
-                    <pre class="language-bash"><code class="language-bash">${data}</code></pre>
+                    <div class="relative">
+                        <button class="copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs" data-code="${encodeURIComponent(data)}">
+                            <i class="fas fa-copy mr-1"></i> Copy
+                        </button>
+                        <pre class="language-bash"><code class="language-bash">${data}</code></pre>
+                    </div>
                 </div>
             `;
+            
+            // Add event listener to copy button
+            const copyButton = contentContainer.querySelector('.copy-button');
+            if (copyButton) {
+                copyButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    const code = decodeURIComponent(this.getAttribute('data-code'));
+                    
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+                        this.classList.add('bg-green-700');
+                        this.classList.remove('bg-gray-700');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.classList.remove('bg-green-700');
+                            this.classList.add('bg-gray-700');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                        this.innerHTML = '<i class="fas fa-times mr-1"></i> Failed';
+                        this.classList.add('bg-red-700');
+                        this.classList.remove('bg-gray-700');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
+                            this.classList.remove('bg-red-700');
+                            this.classList.add('bg-gray-700');
+                        }, 2000);
+                    });
+                });
+            }
             
             // Highlight code
             if (typeof Prism !== 'undefined') {
@@ -457,9 +592,48 @@ function loadPythonFile(path) {
                         <i class="fas fa-file-code text-cyan-400 mr-2"></i>
                         <h3 class="text-xl font-semibold break-all">${path}</h3>
                     </div>
-                    <pre class="language-python"><code class="language-python">${data}</code></pre>
+                    <div class="relative">
+                        <button class="copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs" data-code="${encodeURIComponent(data)}">
+                            <i class="fas fa-copy mr-1"></i> Copy
+                        </button>
+                        <pre class="language-python"><code class="language-python">${data}</code></pre>
+                    </div>
                 </div>
             `;
+            
+            // Add event listener to copy button
+            const copyButton = contentContainer.querySelector('.copy-button');
+            if (copyButton) {
+                copyButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    const code = decodeURIComponent(this.getAttribute('data-code'));
+                    
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+                        this.classList.add('bg-green-700');
+                        this.classList.remove('bg-gray-700');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.classList.remove('bg-green-700');
+                            this.classList.add('bg-gray-700');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                        this.innerHTML = '<i class="fas fa-times mr-1"></i> Failed';
+                        this.classList.add('bg-red-700');
+                        this.classList.remove('bg-gray-700');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy';
+                            this.classList.remove('bg-red-700');
+                            this.classList.add('bg-gray-700');
+                        }, 2000);
+                    });
+                });
+            }
             
             // Highlight code
             if (typeof Prism !== 'undefined') {

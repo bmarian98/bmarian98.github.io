@@ -234,3 +234,31 @@ i.fa-terminal,
 i.fa-file-code {
     font-size: 14px !important;
 }
+
+/* Add styles for copy buttons */
+.copy-button {
+    opacity: 0.7;
+    transition: opacity 0.2s, background-color 0.2s;
+    z-index: 10;
+}
+
+.copy-button:hover {
+    opacity: 1;
+}
+
+/* Make sure code blocks have proper padding for the copy button */
+pre.language-python, 
+pre.language-bash, 
+pre.output-stream, 
+pre.output-result {
+    padding-top: 2rem !important;
+    position: relative;
+}
+
+/* Ensure the copy button is visible on mobile */
+@media (max-width: 767px) {
+    .copy-button {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.7rem;
+    }
+}
