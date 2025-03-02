@@ -40,21 +40,23 @@
                 <li><a href="index.html#skills" class="hover:text-cyan-400">Skills</a></li>
                 <li><a href="index.html#projects" class="hover:text-cyan-400">Projects</a></li>
                 <li><a href="index.html#contact" class="hover:text-cyan-400">Contact</a></li>
-                <li><a href="python-explorer.html" class="text-cyan-400 border-b-2 border-cyan-400">Python</a></li>
+                <li><a href="courses.html" class="text-cyan-400 border-b-2 border-cyan-400">Courses</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container mx-auto px-4 pt-24 pb-12">
-        <!-- Title removed as requested -->
-        
         <div class="file-explorer">
+            <button id="tree-toggle" class="tree-toggle-btn">
+                <i class="fas fa-angle-double-left"></i>
+            </button>
+            
             <div class="file-tree" id="file-tree">
                 <!-- File tree will be populated here -->
             </div>
             <div class="file-content" id="file-content">
                 <div class="text-center p-10">
-                    <i class="fas fa-code fa-3x mb-6 text-cyan-400"></i> <!-- Reduced icon size -->
+                    <i class="fas fa-code fa-3x mb-6 text-cyan-400"></i>
                     <h2 class="text-2xl font-bold mb-4">Select a file to view its contents</h2>
                     <p class="text-sm text-gray-500">Files from the courses folder</p>
                 </div>

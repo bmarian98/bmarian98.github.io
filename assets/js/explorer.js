@@ -531,6 +531,64 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    // Tree toggle functionality
+    const treeToggleBtn = document.getElementById('tree-toggle');
+    const fileExplorer = document.querySelector('.file-explorer');
+    const fileTree = document.getElementById('file-tree');
+    const fileContent = document.getElementById('file-content');
+    
+    if (treeToggleBtn && fileExplorer && fileTree && fileContent) {
+        treeToggleBtn.addEventListener('click', function() {
+            const isCollapsed = fileExplorer.classList.toggle('tree-collapsed');
+            
+            // Change icon based on state
+            const icon = this.querySelector('i');
+            
+            if (isCollapsed) {
+                // Collapse tree
+                icon.classList.remove('fa-angle-double-left');
+                icon.classList.add('fa-angle-double-right');
+                
+                // Hide tree completely
+                fileTree.style.width = '0';
+                fileTree.style.minWidth = '0';
+                fileTree.style.padding = '0';
+                fileTree.style.margin = '0';
+                fileTree.style.border = 'none';
+                fileTree.style.opacity = '0';
+                fileTree.style.display = 'none'; // Completely hide it
+                
+                // Maximize content area
+                fileContent.style.width = '100%';
+                fileContent.style.maxWidth = '100%';
+                fileContent.style.flex = '1';
+                
+                // Move button to left edge
+                this.style.left = '0';
+            } else {
+                // Expand tree
+                icon.classList.remove('fa-angle-double-right');
+                icon.classList.add('fa-angle-double-left');
+                
+                // Show tree
+                fileTree.style.display = 'block';
+                fileTree.style.width = '300px';
+                fileTree.style.minWidth = '300px';
+                fileTree.style.padding = '20px';
+                fileTree.style.margin = '';
+                fileTree.style.border = '';
+                fileTree.style.opacity = '1';
+                
+                // Restore content area
+                fileContent.style.width = '';
+                fileContent.style.maxWidth = '';
+                
+                // Move button back
+                this.style.left = '300px';
+            }
+        });
+    }
 });
 
 // Mobile menu functionality
