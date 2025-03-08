@@ -28,9 +28,12 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <!-- Favicon Generator -->
-    <script src="assets/js/favicon.js"></script>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="assets/site.webmanifest">
 
     <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/theme-favicon.js"></script>
 
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -176,7 +179,7 @@
     </section>
 
     <!-- Light/Dark Mode Toggle Button -->
-    <button @click="darkMode = !darkMode" class="fixed bottom-6 left-6 w-12 h-12 rounded-full bg-cyan-400 text-white flex items-center justify-center shadow-lg">
+    <button @click="darkMode = !darkMode; document.dispatchEvent(new CustomEvent('x-theme-changed'))" class="fixed bottom-6 left-6 w-12 h-12 rounded-full bg-cyan-400 text-white flex items-center justify-center shadow-lg">
         <i class="fas" :class="darkMode ? 'fa-sun' : 'fa-moon'"></i>
     </button>
 
