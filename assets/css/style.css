@@ -934,3 +934,206 @@ nav ul a[href="#"].active {
   background: #0099cc;
   box-shadow: 0 0 10px rgba(0, 153, 204, 0.5);
 }
+
+/* Enhanced Skills Section Styling */
+#skills {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Skills section background effect */
+#skills::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(0, 240, 255, 0.1), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Skills grid container */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  max-width: 1200px;
+  margin: 40px auto 0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 640px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Skill item styling */
+.skills-grid-item {
+  position: relative;
+  border-radius: 12px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  min-height: 180px;
+}
+
+/* Dark mode skill item */
+.dark-mode .skills-grid-item {
+  background: rgba(26, 26, 26, 0.8);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+}
+
+/* Light mode skill item */
+.light-mode .skills-grid-item {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 153, 204, 0.2);
+}
+
+.skills-grid-item:hover {
+  transform: translateY(-10px);
+}
+
+.dark-mode .skills-grid-item:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 240, 255, 0.2);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.light-mode .skills-grid-item:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12), 0 0 15px rgba(0, 153, 204, 0.15);
+  border-color: rgba(0, 153, 204, 0.4);
+}
+
+/* Skill icon */
+.skills-grid-item i {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .skills-grid-item i {
+  color: #00f0ff;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+}
+
+.light-mode .skills-grid-item i {
+  color: #0099cc;
+  text-shadow: 0 0 15px rgba(0, 153, 204, 0.3);
+}
+
+.skills-grid-item:hover i {
+  transform: scale(1.1);
+}
+
+.dark-mode .skills-grid-item:hover i {
+  color: #00f0ff;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.7);
+}
+
+.light-mode .skills-grid-item:hover i {
+  color: #0099cc;
+  text-shadow: 0 0 20px rgba(0, 153, 204, 0.5);
+}
+
+/* Skill name */
+.skills-grid-item p {
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .skills-grid-item p {
+  color: #e2e8f0;
+}
+
+.light-mode .skills-grid-item p {
+  color: #333333;
+}
+
+/* Skill proficiency indicator */
+.skills-grid-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .skills-grid-item::after {
+  background: linear-gradient(to right, transparent, #00f0ff, transparent);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.light-mode .skills-grid-item::after {
+  background: linear-gradient(to right, transparent, #0099cc, transparent);
+  box-shadow: 0 0 10px rgba(0, 153, 204, 0.3);
+}
+
+/* Skill background decoration */
+.skills-grid-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.03;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.dark-mode .skills-grid-item:hover::before {
+  opacity: 0.06;
+}
+
+.light-mode .skills-grid-item:hover::before {
+  opacity: 0.04;
+}
+
+/* Skill category label (optional) */
+.skill-category {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dark-mode .skill-category {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+}
+
+.light-mode .skill-category {
+  background: rgba(0, 153, 204, 0.15);
+  color: #0099cc;
+}

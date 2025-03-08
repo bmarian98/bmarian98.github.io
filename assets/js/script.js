@@ -83,19 +83,6 @@ const credlyEmbedCodes = [
     
 ];
 
-const skills = [
-    { icon: 'devicon-docker-plain', text: 'Docker' },
-    { icon: 'devicon-kubernetes-plain', text: 'Kubernetes' },
-    { icon: 'devicon-python-plain', text: 'Python' },
-    { icon: 'devicon-javascript-plain', text: 'JavaScript' },
-    { icon: 'devicon-linux-plain', text: 'Linux' },
-    { icon: 'devicon-git-plain', text: 'Git' },
-    { icon: 'devicon-terraform-plain', text: 'Terraform' },
-    { icon: 'devicon-ansible-plain', text: 'Ansible' },
-    { icon: 'devicon-jenkins-plain', text: 'Jenkins' },
-    { icon: 'devicon-amazonwebservices-plain-wordmark', text: 'AWS' }
-];
-
 // Function to generate vertical stepper timeline with encapsulating path
 function generateTimeline(timelineData, placeholderId) {
     const timelineContainer = document.createElement('div');
@@ -307,19 +294,106 @@ function generateCredlyGrid(embedCodes, placeholderId) {
     document.body.appendChild(script);
 }
 
-// Function to generate skills grid
+const skills = [
+    { icon: 'devicon-docker-plain', text: 'Docker' },
+    { icon: 'devicon-kubernetes-plain', text: 'Kubernetes' },
+    { icon: 'devicon-python-plain', text: 'Python' },
+    { icon: 'devicon-java-plain', text: 'Java' },
+    { icon: 'devicon-linux-plain', text: 'Linux' },
+    { icon: 'devicon-git-plain', text: 'Git' },
+    { icon: 'devicon-terraform-plain', text: 'Terraform' },
+    { icon: 'devicon-ansible-plain', text: 'Ansible' },
+    { icon: 'devicon-jenkins-plain', text: 'Jenkins' },
+    { icon: 'devicon-gitlab-plain', text: 'Gitlab CI' },
+    { icon: 'devicon-amazonwebservices-plain-wordmark', text: 'AWS' },
+    { icon: 'devicon-bash-plain', text: 'Bash' },
+    { icon: 'devicon-mysql-plain', text: 'MySQL' },
+    { icon: 'devicon-helm-plain', text: 'Helm' },
+    { icon: 'devicon-yaml-plain', text: 'Kustomize' },
+    
+];
+
+// Function to generate skills grid with enhanced styling
 function generateSkillsGrid(skills, placeholderId) {
   const gridContainer = document.createElement('div');
   gridContainer.className = 'skills-grid';
 
+  // Define skill categories
+  const categories = {
+    'docker': 'Container',
+    'kubernetes': 'Orchestration',
+    'python': 'Language',
+    'java': 'Language',
+    'linux': 'OS',
+    'gitlab': 'CI/CD',
+    'git': 'Version Control',
+    'terraform': 'IaC',
+    'ansible': 'Config Mgmt',
+    'jenkins': 'CI/CD',
+    'amazonwebservices': 'Cloud',  // Added Cloud category for AWS
+    'aws': 'Cloud',  // Alternative text that might be used
+    'azure': 'Cloud',
+    'bash': 'Scripting',
+    'mysql': 'Database',
+    'helm': 'Orchestration',
+    'kustomize': 'Orchestration',
+  };
+
+  // Define skill proficiency levels (1-5, optional)
+  const proficiencyLevels = {
+    'docker': 4,
+    'kubernetes': 4,
+    'python': 5,
+    'java': 3,
+    'linux': 5,
+    'git': 4,
+    'terraform': 4,
+    'ansible': 3,
+    'jenkins': 4,
+    'amazonwebservices': 4,
+    'aws': 4  // Alternative text that might be used
+  };
+
   skills.forEach(skill => {
-      const gridItem = document.createElement('div');
-      gridItem.className = 'skills-grid-item';
-      gridItem.innerHTML = `
-          <i class="${skill.icon} devicon text-4xl"></i>
-          <p class="mt-2">${skill.text}</p>
-      `;
-      gridContainer.appendChild(gridItem);
+    const gridItem = document.createElement('div');
+    gridItem.className = 'skills-grid-item';
+    
+    // Extract skill name from text for matching
+    const skillNameLower = skill.text.toLowerCase();
+    
+    // Add category label if available
+    let categoryHTML = '';
+    for (const [key, value] of Object.entries(categories)) {
+      if (skillNameLower.includes(key)) {
+        categoryHTML = `<span class="skill-category">${value}</span>`;
+        break;
+      }
+    }
+    
+    // Set proficiency level if available
+    let proficiencyLevel = 3; // Default level
+    for (const [key, value] of Object.entries(proficiencyLevels)) {
+      if (skillNameLower.includes(key)) {
+        proficiencyLevel = value;
+        break;
+      }
+    }
+    
+    // Set the width of the proficiency indicator based on level
+    setTimeout(() => {
+      const indicator = gridItem.querySelector('::after');
+      if (indicator) {
+        indicator.style.width = `${proficiencyLevel * 20}%`;
+      }
+    }, 100);
+    
+    gridItem.innerHTML = `
+      ${categoryHTML}
+      <i class="${skill.icon}"></i>
+      <p>${skill.text}</p>
+    `;
+    
+    gridContainer.appendChild(gridItem);
   });
 
   document.getElementById(placeholderId).appendChild(gridContainer);
