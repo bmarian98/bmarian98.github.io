@@ -951,13 +951,13 @@ function setupReadMoreButton() {
         // Expand
         aboutText.classList.remove('collapsed');
         aboutText.classList.add('expanded');
-        readMoreBtn.classList.add('expanded');
+        // Change button text and arrow direction (pointing up)
         readMoreBtn.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
       } else {
         // Collapse
         aboutText.classList.remove('expanded');
         aboutText.classList.add('collapsed');
-        readMoreBtn.classList.remove('expanded');
+        // Change button text and arrow direction (pointing down)
         readMoreBtn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
       }
     });
