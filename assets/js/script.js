@@ -325,55 +325,51 @@ function generateSkillsGrid(skills, placeholderId) {
   document.getElementById(placeholderId).appendChild(gridContainer);
 }
 
-// Function to generate projects grid with YouTube videos and project links
-function generateProjectsGrid(videoUrls, projectLinks, placeholderId) {
+// Function to generate projects videos with enhanced styling
+function generateProjectsVideos(videoUrls, placeholderId) {
     const projectsGrid = document.getElementById(placeholderId);
-
+    if (!projectsGrid) return;
+    
+    projectsGrid.innerHTML = ''; // Clear existing content
+    
     videoUrls.forEach((videoUrl, index) => {
         const div = document.createElement('div');
         div.className = 'project-item';
+        
         div.innerHTML = `
-            <iframe width="100%" height="315" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <ul class="project-links mt-8">
-                ${projectLinks[index].map(link => `
-                    <li>
-                        <a href="${link.url}" target="_blank">
-                            <i class="fab ${link.icon}"></i> ${link.text}
-                        </a>
-                    </li>
-                `).join('')}
-            </ul>
+            <div class="project-video-container">
+                <iframe src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="project-content">
+                <div class="project-links">
+                    <a href="#" class="project-link">
+                        <i class="fas fa-code-branch"></i> Source Code
+                    </a>
+                </div>
+            </div>
         `;
+        
         projectsGrid.appendChild(div);
     });
 }
 
-// Function to generate projects grid with YouTube videos
-function generateProjectsVideos(videoUrls, placeholderId) {
-    const projectsGrid = document.getElementById(placeholderId);
-
-    videoUrls.forEach(videoUrl => {
-        const div = document.createElement('div');
-        div.className = 'project-item';
-        div.innerHTML = `
-            <iframe width="100%" height="315" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        `;
-        projectsGrid.appendChild(div);
-    });
-}
-
-// Function to generate project links
+// Function to generate project links with enhanced styling
 function generateProjectLinks(projectLinks, placeholderId) {
     const projectsGrid = document.getElementById(placeholderId);
-
+    if (!projectsGrid) return;
+    
+    projectsGrid.innerHTML = ''; // Clear existing content
+    
     projectLinks.forEach(link => {
         const div = document.createElement('div');
         div.className = 'project-link-item';
+        
         div.innerHTML = `
             <a href="${link.url}" target="_blank">
                 <i class="fab ${link.icon}"></i> ${link.text}
             </a>
         `;
+        
         projectsGrid.appendChild(div);
     });
 }
