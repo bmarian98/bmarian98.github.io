@@ -1442,3 +1442,69 @@ nav ul a[href="#"].active {
 .light-mode #contact::before {
   opacity: 0.7; /* Slightly reduce opacity in light mode for subtlety */
 }
+
+/* Styling for the about text and read more functionality */
+.about-container {
+  position: relative;
+  width: 80%;
+}
+
+.about-text {
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  position: relative;
+  line-height: 1.6;
+}
+
+.about-text.collapsed {
+  max-height: 4.8em; /* Approximately 3 lines */
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.about-text.expanded {
+  max-height: 500px; /* Adjust based on your content */
+}
+
+.read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .read-more-btn {
+  border-color: #00f0ff;
+  color: #00f0ff;
+}
+
+.light-mode .read-more-btn {
+  border-color: #0099cc;
+  color: #0099cc;
+}
+
+.dark-mode .read-more-btn:hover {
+  background: rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.light-mode .read-more-btn:hover {
+  background: rgba(0, 153, 204, 0.1);
+  box-shadow: 0 0 10px rgba(0, 153, 204, 0.3);
+}
+
+.read-more-btn i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.read-more-btn.expanded i {
+  transform: rotate(180deg);
+}

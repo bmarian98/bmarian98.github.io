@@ -940,6 +940,30 @@ function setupNavLinkHighlighting() {
     }
 }
 
+// Function to handle the read more button
+function setupReadMoreButton() {
+  const readMoreBtn = document.querySelector('.read-more-btn');
+  const aboutText = document.querySelector('.about-text');
+  
+  if (readMoreBtn && aboutText) {
+    readMoreBtn.addEventListener('click', function() {
+      if (aboutText.classList.contains('collapsed')) {
+        // Expand
+        aboutText.classList.remove('collapsed');
+        aboutText.classList.add('expanded');
+        readMoreBtn.classList.add('expanded');
+        readMoreBtn.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+      } else {
+        // Collapse
+        aboutText.classList.remove('expanded');
+        aboutText.classList.add('collapsed');
+        readMoreBtn.classList.remove('expanded');
+        readMoreBtn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+      }
+    });
+  }
+}
+
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM content loaded"); // Debug log
@@ -1003,6 +1027,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup navigation link highlighting
     setupNavLinkHighlighting();
+
+    // Setup read more functionality
+    setupReadMoreButton();
 
     // Listen for theme toggle
     const themeToggle = document.querySelector('[x-data]');
