@@ -669,7 +669,7 @@ function loadPythonFile(path) {
         });
 }
 
-// Add a new function to load markdown content
+// Function to load markdown content
 function loadMarkdown(path) {
     const contentContainer = document.getElementById('file-content');
     if (!contentContainer) return;
@@ -705,49 +705,10 @@ function loadMarkdown(path) {
                         <h3 class="text-xl font-semibold break-all">${displayPath}</h3>
                     </div>
                     <div class="markdown-content">
-                        <div class="relative">
-                            <button class="copy-button absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 p-1 rounded text-xs" data-code="${encodeURIComponent(data)}">
-                                <i class="fas fa-copy mr-1"></i> Copy All
-                            </button>
-                            <div class="markdown-body p-4 bg-gray-800 rounded">${renderMarkdownToHTML(data)}</div>
-                        </div>
+                        <div class="markdown-body p-4 bg-gray-800 rounded">${renderMarkdownToHTML(data)}</div>
                     </div>
                 </div>
             `;
-            
-            // Add event listener to copy button
-            const copyButton = contentContainer.querySelector('.copy-button');
-            if (copyButton) {
-                copyButton.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    
-                    const code = decodeURIComponent(this.getAttribute('data-code'));
-                    
-                    navigator.clipboard.writeText(code).then(() => {
-                        const originalText = this.innerHTML;
-                        this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
-                        this.classList.add('bg-green-700');
-                        this.classList.remove('bg-gray-700');
-                        
-                        setTimeout(() => {
-                            this.innerHTML = originalText;
-                            this.classList.remove('bg-green-700');
-                            this.classList.add('bg-gray-700');
-                        }, 2000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
-                        this.innerHTML = '<i class="fas fa-times mr-1"></i> Failed';
-                        this.classList.add('bg-red-700');
-                        this.classList.remove('bg-gray-700');
-                        
-                        setTimeout(() => {
-                            this.innerHTML = '<i class="fas fa-copy mr-1"></i> Copy All';
-                            this.classList.remove('bg-red-700');
-                            this.classList.add('bg-gray-700');
-                        }, 2000);
-                    });
-                });
-            }
             
             // Add copy buttons to code blocks in the markdown
             addCopyButtonsToCodeBlocks();
@@ -766,34 +727,49 @@ function loadMarkdown(path) {
         });
 }
 
-// Simple function to convert markdown to HTML
+// Improved function to convert markdown to HTML with better table support
 function renderMarkdownToHTML(markdown) {
-    // This is a very basic markdown renderer
-    // For a real implementation, consider using a library like marked.js
+    // Process tables first - this is a more robust approach
+    let html = markdown;
+    
+    // Find table sections and process them
+    const tableRegex = /(\|.+\|\n\|[-:| ]+\|\n(?:\|.+\|\n)+)/g;
+    html = html.replace(tableRegex, function(tableMatch) {
+        // Split the table into rows
+        const rows = tableMatch.trim().split('\n');
+        
+        // Process header row
+        const headerRow = rows[0];
+        const headerCells = headerRow.split('|').filter(cell => cell.trim() !== '');
+        const headerHTML = '<tr>' + headerCells.map(cell => 
+            `<th class="border border-gray-600 px-4 py-2 bg-gray-700">${cell.trim()}</th>`
+        ).join('') + '</tr>';
+        
+        // Skip the separator row (row[1])
+        
+        // Process data rows
+        const dataRowsHTML = rows.slice(2).map(row => {
+            const cells = row.split('|').filter(cell => cell.trim() !== '');
+            return '<tr>' + cells.map(cell => 
+                `<td class="border border-gray-600 px-4 py-2">${cell.trim()}</td>`
+            ).join('') + '</tr>';
+        }).join('');
+        
+        // Combine into a complete table
+        return `<div class="overflow-x-auto my-4">
+                  <table class="min-w-full bg-gray-800 border border-gray-600 rounded">
+                    <thead>${headerHTML}</thead>
+                    <tbody>${dataRowsHTML}</tbody>
+                  </table>
+                </div>`;
+    });
     
     // Convert headers
-    let html = markdown
-        .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mt-6 mb-4">$1</h1>')
-        .replace(/^## (.*$)/gm, '<h2 class="text-xl font-bold mt-5 mb-3">$1</h2>')
-        .replace(/^### (.*$)/gm, '<h3 class="text-lg font-bold mt-4 mb-2">$1</h3>')
-        .replace(/^#### (.*$)/gm, '<h4 class="text-base font-bold mt-3 mb-2">$1</h4>');
-    
-    // Convert tables
-    html = html.replace(/\|(.+)\|/g, function(match) {
-        const cells = match.split('|').filter(cell => cell.trim() !== '');
-        return '<tr>' + cells.map(cell => `<td class="border border-gray-600 px-4 py-2">${cell.trim()}</td>`).join('') + '</tr>';
-    });
-    
-    // Identify table sections
-    html = html.replace(/<tr>(.+)<\/tr>\s*<tr>(-+\|)+<\/tr>/g, function(match, headerRow) {
-        return '<table class="min-w-full bg-gray-700 rounded my-4"><thead class="bg-gray-800">' + 
-               headerRow + '</thead><tbody>';
-    });
-    
-    // Close tables
-    html = html.replace(/<tbody>(.+?)(?=<h|$)/gs, function(match, tableBody) {
-        return '<tbody>' + tableBody + '</tbody></table>';
-    });
+    html = html
+        .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mt-6 mb-4 text-cyan-400">$1</h1>')
+        .replace(/^## (.*$)/gm, '<h2 class="text-xl font-bold mt-5 mb-3 text-cyan-400">$1</h2>')
+        .replace(/^### (.*$)/gm, '<h3 class="text-lg font-bold mt-4 mb-2 text-cyan-400">$1</h3>')
+        .replace(/^#### (.*$)/gm, '<h4 class="text-base font-bold mt-3 mb-2 text-cyan-400">$1</h4>');
     
     // Convert bold
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -823,8 +799,8 @@ function renderMarkdownToHTML(markdown) {
         }
     });
     
-    // Convert paragraphs
-    html = html.replace(/^(?!<[hou]).+$/gm, function(match) {
+    // Convert paragraphs (but not inside lists or tables)
+    html = html.replace(/^(?!<[holut]).+$/gm, function(match) {
         if (match.trim() === '') return '';
         return '<p class="my-3">' + match + '</p>';
     });
