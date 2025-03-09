@@ -17,6 +17,18 @@
         {
           "name": "python",
           "icon": "fa-python",
+          "folders": [
+            {
+            "name" :  "module_1",
+            "files": [
+                {
+                  "name": "why_to_learn_python.md",
+                  "path": "courses/python/module_1/why_to_learn_python.md",
+                  "type": "markdown"
+                }
+            ]
+          }
+          ],
           "files": [
             {
               "name": "first.ipynb",
