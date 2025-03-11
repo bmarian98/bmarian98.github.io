@@ -412,11 +412,11 @@ function generateProjectsVideos(videoUrls, placeholderId) {
         
         div.innerHTML = `
             <div class="project-video-container">
-                <iframe src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="${videoUrl.yt_video_url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="project-content">
                 <div class="project-links">
-                    <a href="#" class="project-link">
+                    <a href="${videoUrl.code_url}" class="project-link" target="_blank">
                         <i class="fas fa-code-branch"></i> Source Code
                     </a>
                 </div>
@@ -450,8 +450,8 @@ function generateProjectLinks(projectLinks, placeholderId) {
 
 // List of YouTube video URLs
 const videoUrls = [
-    "https://www.youtube.com/embed/cdDyN_a_TII",
-    "https://www.youtube.com/embed/2nzw8ehkXJE",
+    {yt_video_url: "https://www.youtube.com/embed/cdDyN_a_TII", code_url: "https://github.com/bmarian98/gcp_project_24"},
+    {yt_video_url: "https://www.youtube.com/embed/2nzw8ehkXJE", code_url: "https://gitlab.com/devops-project23/do-k8s"},
     // Add more video URLs as needed
 ];
 
