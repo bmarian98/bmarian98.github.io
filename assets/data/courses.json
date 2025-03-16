@@ -30,6 +30,11 @@
                   "name": "Install Python",
                   "path": "courses/python/module_1/02_install_python.md",
                   "type": "markdown"
+                },
+                {
+                  "name": "Syntax and data types",
+                  "path": "courses/python/module_1/03_syntax_data_types.md",
+                  "type": "markdown"
                 }
             ]
           }
