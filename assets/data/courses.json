@@ -35,6 +35,11 @@
                   "name": "Syntax and data types",
                   "path": "courses/python/module_1/03_syntax_data_types.md",
                   "type": "markdown"
+                },
+                {
+                  "name": "Control flow",
+                  "path": "courses/python/module_1/04_control_flow.md",
+                  "type": "markdown"
                 }
             ]
           }
