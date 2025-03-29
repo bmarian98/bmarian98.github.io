@@ -710,7 +710,10 @@ function loadMarkdown(path) {
                 </div>
             `;
             
-            // Add copy buttons to code blocks in the markdown
+            // Highlight all code blocks
+            Prism.highlightAll();
+            
+            // Add copy buttons to code blocks
             addCopyButtonsToCodeBlocks();
         })
         .catch(error => {
@@ -729,10 +732,20 @@ function loadMarkdown(path) {
 
 // Improved function to convert markdown to HTML with better table support
 function renderMarkdownToHTML(markdown) {
-    // Process tables first - this is a more robust approach
     let html = markdown;
     
-    // Find table sections and process them
+    // Convert code blocks
+    html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, function(match, language, code) {
+        const lang = language || 'plaintext';
+        // Fix broken parentheses by ensuring they stay on the same line
+        const cleanCode = code.trim()
+            .replace(/\(\s*\n\s*([^)]+)\s*\n\s*\)/g, '($1)') // Fix multi-line parentheses
+            .replace(/\(\s*\n\s*\)/g, '()'); // Fix split parentheses
+        
+        return `<pre class="line-numbers"><code class="language-${lang}">${cleanCode}</code></pre>`;
+    });
+    
+    // Process tables first
     const tableRegex = /(\|.+\|\n\|[-:| ]+\|\n(?:\|.+\|\n)+)/g;
     html = html.replace(tableRegex, function(tableMatch) {
         // Split the table into rows
@@ -777,14 +790,10 @@ function renderMarkdownToHTML(markdown) {
     // Convert italic
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
-    // Convert code blocks
-    html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, function(match, language, code) {
-        const lang = language || 'plaintext';
-        return `<pre class="relative bg-gray-900 rounded p-4 my-4"><code class="language-${lang}">${code}</code></pre>`;
+    // Convert inline code blocks
+    html = html.replace(/`([^`]+)`/g, function(match, code) {
+        return `<code class="bg-gray-900 px-1 rounded">${escapeHtml(code)}</code>`;
     });
-    
-    // Convert inline code
-    html = html.replace(/`([^`]+)`/g, '<code class="bg-gray-900 px-1 rounded">$1</code>');
     
     // Convert lists
     html = html.replace(/^\d+\. (.*$)/gm, '<li class="ml-6 list-decimal">$1</li>');
@@ -806,6 +815,13 @@ function renderMarkdownToHTML(markdown) {
     });
     
     return html;
+}
+
+// Add this helper function for escaping HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 // Function to add copy buttons to code blocks in markdown

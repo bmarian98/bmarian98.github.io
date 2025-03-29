@@ -317,3 +317,482 @@ pre.output-result {
 .markdown-icon {
     color: #9ca3af; /* Gray color for markdown files */
 }
+/* Adjust code block spacing */
+.markdown-body pre {
+    margin: 0.5rem 0;
+}
+
+/* Customize line numbers */
+.line-numbers .line-numbers-rows {
+    border-right: 1px solid #4a5568;
+    padding-right: 0.5rem;
+}
+
+/* Adjust the copy button position for line numbers */
+.line-numbers .copy-button {
+    right: 0.5rem;
+}
+
+/* Adjust code block padding */
+.markdown-body pre[class*="language-"] {
+    margin: 0;
+    padding: 1rem;
+    background: #1e1e1e !important;
+}
+
+/* Fix the space between code lines */
+.markdown-body pre[class*="language-"] code {
+    line-height: 1.5 !important;
+}
+
+/* Remove the extra space that Prism adds */
+.markdown-body pre[class*="language-"] code > span {
+    display: block !important;
+    height: 1.5em !important;
+}
+
+/* Python syntax colors to match the image exactly */
+.language-python .token.keyword { color: #569cd6 !important; }  /* for, if, break */
+.language-python .token.builtin { color: #4ec9b0 !important; }  /* range, print */
+.language-python .token.number { color: #b5cea8 !important; }   /* numbers */
+.language-python .token.comment { color: #6a9955 !important; }  /* comments */
+.language-python .token.operator { color: #d4d4d4 !important; } /* == */
+.language-python .token.punctuation { color: #d4d4d4 !important; } /* parentheses */
+
+/* Line numbers styling */
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 2em;
+    border-right: 2px solid #404040 !important;
+}
+
+/* Line numbers text */
+.line-numbers-rows > span:before {
+    color: #858585 !important;
+    padding-right: 1em;
+}
+
+/* Code content positioning */
+.line-numbers > code {
+    margin-left: 3.5em;
+    line-height: 1.2 !important;
+    display: inline-block !important;
+}
+
+/* Fix the LAST line spacing specifically */
+.line-numbers > code > span:nth-last-child(2) {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 1.2 !important;
+}
+
+/* Syntax highlighting colors */
+.token.string { color: #ce9178 !important; }
+.token.keyword { color: #569cd6 !important; }
+.token.function { color: #dcdcaa !important; }
+.token.number { color: #b5cea8 !important; }
+.token.operator { color: #d4d4d4 !important; }
+.token.punctuation { color: #d4d4d4 !important; }
+.token.builtin { color: #4ec9b0 !important; }
+
+/* Ensure code blocks have consistent bottom spacing */
+.markdown-body pre[class*="language-"] > code {
+    display: block;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+/* Add spacing between lines */
+.markdown-body pre[class*="language-"] > code > span {
+    line-height: 1.5;
+}
+
+/* Fix Prism line highlight spacing */
+.line-highlight {
+    margin-top: 0;
+}
+
+/* Ensure last line has proper spacing */
+.markdown-body pre[class*="language-"] code:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    line-height: 1.5;
+}
+
+/* Custom scrollbar for code blocks */
+.markdown-body pre::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.markdown-body pre::-webkit-scrollbar-track {
+    background: #2d3748;
+    border-radius: 4px;
+}
+
+.markdown-body pre::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 4px;
+}
+
+.markdown-body pre::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+}
+
+/* Line numbers styling */
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 3rem !important;
+    border-right: 1px solid #404040;
+    background: #1e1e1e;
+    text-align: right;
+}
+
+/* Remove line highlight colors */
+.line-numbers .line-numbers-rows > span:before {
+    color: #858585 !important;
+    padding-right: 1rem;
+}
+
+/* Ensure proper spacing */
+.markdown-body pre[class*="language-"] > code {
+    padding: 0;
+}
+
+/* Code wrapper container */
+.code-wrapper {
+    position: relative;
+    margin: 1rem 0;
+    background: #1a202c;
+    border-radius: 0.375rem;
+}
+
+/* Syntax highlighting colors - VS Code-like theme */
+.token.string {
+    color: #ce9178;
+}
+
+.token.keyword {
+    color: #569cd6;
+}
+
+.token.function {
+    color: #dcdcaa;
+}
+
+.token.comment {
+    color: #6a9955;
+}
+
+/* Add more token colors as needed */
+
+/* Ensure code text is properly colored */
+.markdown-body pre[class*="language-"] code {
+    color: #d4d4d4;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* Line numbers container */
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 1rem;
+    left: 1rem;
+    width: 2.5rem;
+    border-right: 1px solid #4a5568;
+    padding-right: 0.5rem;
+    font-size: 100%;
+    line-height: 1.5;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Line number styling */
+.line-numbers-rows > span:before {
+    color: #718096 !important;
+    padding-right: 0.5rem;
+}
+
+/* Copy button positioning */
+.copy-button {
+    position: absolute !important;
+    top: 0.5rem !important;
+    right: 0.5rem !important;
+    z-index: 10;
+}
+
+/* Inline code styling */
+.markdown-body code:not([class*="language-"]) {
+    background: #2d3748;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: #e2e8f0;
+}
+
+/* Code block styling */
+.code-block {
+    background: #1e1e1e !important;
+    padding: 1rem !important;
+    margin: 0;
+    overflow-x: auto;
+}
+
+/* Line styling */
+.line {
+    display: block;
+    line-height: 1.5;
+}
+
+/* Line number styling */
+.line-number {
+    display: inline-block;
+    width: 2em;
+    text-align: right;
+    color: #858585;
+    margin-right: 1em;
+    position: relative;
+}
+
+/* Vertical bar after line numbers */
+.line-number::after {
+    content: '';
+    position: absolute;
+    right: -0.5em;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #404040;
+}
+
+/* Code content styling */
+.code-block code {
+    color: #d4d4d4;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* Remove any extra spacing between lines */
+.line + .line {
+    margin-top: 0;
+}
+
+/* Syntax highlighting colors */
+.token.string {
+    color: #ce9178;
+}
+
+.token.keyword {
+    color: #569cd6;
+}
+
+.token.function {
+    color: #dcdcaa;
+}
+
+.token.comment {
+    color: #6a9955;
+}
+
+/* Force syntax colors */
+.language-python .token.string { color: #ce9178 !important; }
+.language-python .token.keyword { color: #569cd6 !important; }
+.language-python .token.function { color: #dcdcaa !important; }
+.language-python .token.number { color: #b5cea8 !important; }
+.language-python .token.operator { color: #d4d4d4 !important; }
+.language-python .token.punctuation { color: #d4d4d4 !important; }
+.language-python .token.builtin { color: #4ec9b0 !important; }
+
+/* Base code block */
+.markdown-body pre[class*="language-"] {
+    margin: 0;
+    padding: 1rem;
+    background: #1e1e1e !important;
+}
+
+/* Reset ALL spacing first */
+.markdown-body pre[class*="language-"] code {
+    margin-left: 3.5em;
+    line-height: 1.5;
+}
+
+/* Remove Prism's default handling that causes the extra space */
+.markdown-body pre[class*="language-"] code::after {
+    content: none !important;
+}
+
+/* Line numbers */
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 2em;
+    border-right: 2px solid #404040 !important;
+}
+
+.line-numbers-rows > span:before {
+    color: #858585 !important;
+    padding-right: 1em;
+}
+
+/* Fix ALL line spacing issues */
+.line-numbers > code {
+    margin-left: 3.5em;
+    line-height: 1.2 !important;
+}
+
+/* Remove extra space after last line */
+.line-numbers > code::after {
+    display: none !important;
+}
+
+/* Remove Prism's extra line at the end */
+.prism-previewer:after {
+    display: none !important;
+}
+
+/* Target SPECIFICALLY the space between last two lines in markdown code blocks */
+.markdown-body pre[class*="language-"] code > span:last-of-type {
+    margin-top: -0.7em !important;  /* Pull up the last line to match other spacing */
+}
+
+/* Remove the extra element Prism adds before the last line */
+.markdown-body pre[class*="language-"] code .token:last-child,
+.markdown-body pre[class*="language-"] code .token:nth-last-child(2) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Force ALL tokens to have same spacing */
+.markdown-body pre[class*="language-"] code .token {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: auto !important;
+    line-height: 1.2 !important;
+}
+
+/* Normal text spacing remains unchanged */
+.markdown-body p {
+    margin: 1rem 0;
+}
+
+/* Code block specific styling */
+.markdown-body pre[class*="language-"] {
+    margin: 0;
+    padding: 1rem;
+    background: #1e1e1e !important;
+}
+
+/* Line numbers */
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 2em;
+    border-right: 2px solid #404040 !important;
+}
+
+/* Code content with EXACT same spacing between ALL lines */
+.markdown-body pre[class*="language-"] code {
+    margin-left: 3.5em;
+    font-family: 'Consolas', monospace;
+    display: block;
+}
+
+/* Force EVERY line in code blocks to have identical spacing */
+.markdown-body pre[class*="language-"] code > * {
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Python syntax colors */
+.language-python .token.keyword { color: #569cd6 !important; }
+.language-python .token.builtin { color: #4ec9b0 !important; }
+.language-python .token.number { color: #b5cea8 !important; }
+.language-python .token.comment { color: #6a9955 !important; }
+.language-python .token.operator { color: #d4d4d4 !important; }
+.language-python .token.punctuation { color: #d4d4d4 !important; }
+
+/* Remove Prism's extra spacing before print() */
+.markdown-body pre[class*="language-"] code br {
+    display: none !important;
+}
+
+/* Fix the specific extra space before print(num) */
+.markdown-body pre[class*="language-"] code .token:last-child {
+    position: relative;
+    top: -0.7em !important; /* Move up the print(num) line to match other spacing */
+}
+
+/* Make ALL lines have EXACTLY the same space between them */
+.markdown-body pre[class*="language-"] code {
+    line-height: 1.5 !important;
+}
+
+.markdown-body pre[class*="language-"] code br {
+    display: none !important;  /* Remove the extra line break that's causing the bigger space */
+}
+
+/* Reset everything first */
+.markdown-body pre[class*="language-"] code {
+    white-space: pre !important;  /* Preserve the actual code formatting */
+}
+
+/* Force tokens to stay together */
+.markdown-body pre[class*="language-"] code .token {
+    display: inline !important;  /* Keep code parts together */
+    white-space: pre !important;
+}
+
+/* Keep line breaks only where they should be */
+.markdown-body pre[class*="language-"] code br {
+    display: block !important;
+    margin: 0 !important;
+    height: 1.5em !important;  /* Consistent line spacing */
+}
+
+/* Keep code together */
+.markdown-body pre[class*="language-"] code {
+    white-space: pre !important;
+}
+
+/* Force tokens to stay on their proper lines */
+.markdown-body pre[class*="language-"] code .token {
+    display: inline !important;
+    white-space: pre !important;
+}
+
+/* Keep markdown code blocks exactly as they are in the .md file */
+.markdown-body pre[class*="language-"] {
+    margin: 0;
+    padding: 1rem;
+    background: #1e1e1e !important;
+}
+
+.markdown-body pre[class*="language-"] code {
+    white-space: pre !important;  /* Preserve original formatting */
+}
+
+/* Force code to stay together */
+.markdown-body pre[class*="language-"] code .token {
+    float: none !important;
+    display: inline !important;
+    position: static !important;
+}
+
+/* Remove any extra line breaks */
+.markdown-body pre[class*="language-"] code br {
+    display: none !important;
+}
