@@ -40,6 +40,11 @@
                   "name": "Control flow",
                   "path": "courses/python/module_1/04_control_flow.md",
                   "type": "markdown"
+                },
+                {
+                  "name": "Functions",
+                  "path": "courses/python/module_1/05_functions.md",
+                  "type": "markdown"
                 }
             ]
           }
