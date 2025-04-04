@@ -45,6 +45,11 @@
                   "name": "Functions",
                   "path": "courses/python/module_1/05_functions.md",
                   "type": "markdown"
+                },
+                {
+                  "name": "Lists&Tuples",
+                  "path": "courses/python/module_1/06_lists_and_tuples.md",
+                  "type": "markdown"
                 }
             ]
           }
