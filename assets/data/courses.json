@@ -51,9 +51,18 @@
                   "path": "courses/python/module_1/06_lists_and_tuples.md",
                   "type": "markdown"
                 }
+            ],
+            "name" :  "module_2",
+            "files": [
+                {
+                  "name": "Intro to Python OOP",
+                  "path": "courses/python/oop/01_intro_oop.ipybn",
+                  "type": "notebook"
+                }
             ]
           }
           ],
+
           "files": [
             {
               "name": "first.ipynb",
