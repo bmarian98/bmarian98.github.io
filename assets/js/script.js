@@ -16,7 +16,7 @@ particlesJS("particles-js", {
 const workTimelineData = [
     {
         title: "Qodea - Hybrid (Iasi)",
-        company: "Junior DevOps",
+        company: "Platform Engineer",
         period: "July, 2025 - Present",
         description: "Using Google Cloud, Terraform, Terragrunt",
         icon: "fas fa-infinity"
@@ -317,6 +317,7 @@ const skills = [
     { icon: 'devicon-mysql-plain', text: 'MySQL' },
     { icon: 'devicon-helm-plain', text: 'Helm' },
     { icon: 'devicon-yaml-plain', text: 'Kustomize' },
+    { icon: 'devicon-googlecloud-plain', text: 'GCP'}
     
 ];
 
