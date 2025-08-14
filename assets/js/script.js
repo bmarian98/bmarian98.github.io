@@ -345,6 +345,7 @@ function generateSkillsGrid(skills, placeholderId) {
     'mysql': 'Database',
     'helm': 'Orchestration',
     'kustomize': 'Orchestration',
+    'gcp': 'Cloud'
   };
 
   // Define skill proficiency levels (1-5, optional)
