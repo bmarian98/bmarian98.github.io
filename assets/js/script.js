@@ -15,9 +15,16 @@ particlesJS("particles-js", {
 // Work Experience Timeline data
 const workTimelineData = [
     {
+        title: "Qodea - Hybrid (Iasi)",
+        company: "Junior DevOps",
+        period: "July, 2025 - Present",
+        description: "Using Google Cloud, Terraform, Terragrunt",
+        icon: "fas fa-infinity"
+    },
+    {
         title: "Nagarro - Remote",
         company: "Junior DevOps",
-        period: "November, 2023 - Present",
+        period: "November, 2023 - July, 2025",
         description: "Developing and maintaining CI pipeline using GitLabCI. Deploying and managing applications on Kubernetes using various manifests (Deployments, Services, Ingress, ConfigMaps). Creating and publishing Dockerfiles and Helm charts to Harbor/JFrog or creating small Python projects to use Harbor API. Automating the creation of a POC K8s cluster on 3 VMs using Ansible.",
         icon: "fas fa-infinity"
     },
