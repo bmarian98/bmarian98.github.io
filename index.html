@@ -40,20 +40,43 @@
     <div id="particles-js" class="absolute top-0 left-0 w-full h-full -z-10"></div>
 
     <!-- Navbar -->
-    <nav class="fixed w-full flex justify-between p-6 bg-black bg-opacity-40 backdrop-blur-lg z-50">
+    <nav id="navbar" class="fixed top-0 w-full flex justify-between items-center p-6 bg-black bg-opacity-40 backdrop-blur-lg z-50">
         <h1 class="text-xl font-semibold glow">
             <a href="#">Marian <span class="text-cyan-400">Bodnar</span></a>
         </h1>
-        <div class="flex gap-6 items-center">
+        
+        <!-- Hamburger Menu Button for Mobile -->
+        <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-6 items-center">
             <ul class="flex gap-6">
-                <li><a href="#" class="hover:text-cyan-400">Home</a></li>
-                <li><a href="#experience" class="hover:text-cyan-400">Experience</a></li>
-                <li><a href="#studies" class="hover:text-cyan-400">Studies</a></li>
-                <li><a href="#certs" class="hover:text-cyan-400">Certifications</a></li>
-                <li><a href="#skills" class="hover:text-cyan-400">Skills</a></li>
-                <li><a href="#projects" class="hover:text-cyan-400">Projects</a></li>
-                <li><a href="#contact" class="hover:text-cyan-400">Contact</a></li>
-                <li><a href="courses.html" class="hover:text-cyan-400">Courses</a></li>
+                <li><a href="#" class="hover:text-cyan-400 nav-link">Home</a></li>
+                <li><a href="#experience" class="hover:text-cyan-400 nav-link">Experience</a></li>
+                <li><a href="#studies" class="hover:text-cyan-400 nav-link">Studies</a></li>
+                <li><a href="#certs" class="hover:text-cyan-400 nav-link">Certifications</a></li>
+                <li><a href="#skills" class="hover:text-cyan-400 nav-link">Skills</a></li>
+                <li><a href="#projects" class="hover:text-cyan-400 nav-link">Projects</a></li>
+                <li><a href="#contact" class="hover:text-cyan-400 nav-link">Contact</a></li>
+                <li><a href="courses.html" class="hover:text-cyan-400 nav-link">Courses</a></li>
+            </ul>
+        </div>
+        
+        <!-- Mobile Dropdown Menu (same styling as navbar) -->
+        <div id="mobile-menu" class="absolute left-0 top-full w-full z-40 hidden">
+            <ul>
+                <li><a href="#" class="mobile-nav-link">Home</a></li>
+                <li><a href="#experience" class="mobile-nav-link">Experience</a></li>
+                <li><a href="#studies" class="mobile-nav-link">Studies</a></li>
+                <li><a href="#certs" class="mobile-nav-link">Certifications</a></li>
+                <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
+                <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+                <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+                <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
             </ul>
         </div>
     </nav>

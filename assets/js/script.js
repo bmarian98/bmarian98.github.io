@@ -976,6 +976,55 @@ function setupReadMoreButton() {
   }
 }
 
+// Function to setup mobile menu functionality
+function setupMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent triggering outside click
+            
+            const isOpen = mobileMenu.classList.contains('mobile-menu-open');
+            
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.remove('mobile-menu-open');
+                mobileMenuBtn.classList.remove('hamburger-toggled');
+            } else {
+                // Open menu
+                mobileMenu.classList.add('mobile-menu-open');
+                mobileMenuBtn.classList.add('hamburger-toggled');
+            }
+        });
+        
+        // Close menu when clicking on nav links
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('mobile-menu-open');
+                mobileMenuBtn.classList.remove('hamburger-toggled');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('mobile-menu-open')) {
+                mobileMenu.classList.remove('mobile-menu-open');
+                mobileMenuBtn.classList.remove('hamburger-toggled');
+            }
+        });
+        
+        // Close menu on window resize (desktop mode)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                mobileMenu.classList.remove('mobile-menu-open');
+                mobileMenuBtn.classList.remove('hamburger-toggled');
+            }
+        });
+    }
+}
+
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM content loaded"); // Debug log
@@ -1042,6 +1091,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup read more functionality
     setupReadMoreButton();
+
+    // Setup mobile menu functionality
+    setupMobileMenu();
 
     // Listen for theme toggle
     const themeToggle = document.querySelector('[x-data]');
