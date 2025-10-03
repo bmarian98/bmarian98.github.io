@@ -76,18 +76,13 @@ const studiesTimelineData = [
     }
 ];
 
-// Credly embed codes
-const credlyEmbedCodes = [
-  `<div data-iframe-width="350" data-iframe-height="270" data-share-badge-id="e3536e2b-a534-427c-b7b7-38ee1078c832" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>`,
-
-  `<div data-iframe-width="350" data-iframe-height="270" data-share-badge-id="88be74a4-3418-4577-b53f-8f978423208c" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>`,
-
-  `<div data-iframe-width="350" data-iframe-height="270" data-share-badge-id="3cbbbda5-ba6c-4635-a861-3bb6b13b332f" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>`,
-
-  `<div data-iframe-width="350" data-iframe-height="270" data-share-badge-id="9301eeea-c745-4c9b-8b06-015aeb609560" data-share-badge-host="https://www.credly.com"></div>`,
-
-  `<div data-iframe-width="350" data-iframe-height="270" data-share-badge-id="1b6dd5fb-0cbe-4f08-8f75-da28b88d455e" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>`,
-    
+// Credly badge IDs (optimized to load script only once)
+const credlyBadgeIds = [
+  'e3536e2b-a534-427c-b7b7-38ee1078c832',
+  '88be74a4-3418-4577-b53f-8f978423208c',
+  '3cbbbda5-ba6c-4635-a861-3bb6b13b332f',
+  '9301eeea-c745-4c9b-8b06-015aeb609560',
+  '1b6dd5fb-0cbe-4f08-8f75-da28b88d455e'
 ];
 
 // Function to generate vertical stepper timeline with encapsulating path
@@ -280,25 +275,33 @@ function drawEncapsulatingPath(container) {
     svg.appendChild(path);
 }
 
-// Function to generate Credly grid
-function generateCredlyGrid(embedCodes, placeholderId) {
+// Function to generate Credly grid (optimized to load script once)
+function generateCredlyGrid(badgeIds, placeholderId) {
     const gridContainer = document.createElement('div');
     gridContainer.className = 'credly-grid';
 
-    embedCodes.forEach(code => {
+    // Create a div for each badge ID
+    badgeIds.forEach(badgeId => {
         const gridItem = document.createElement('div');
-        gridItem.innerHTML = code;
+        const badgeDiv = document.createElement('div');
+        badgeDiv.setAttribute('data-iframe-width', '350');
+        badgeDiv.setAttribute('data-iframe-height', '270');
+        badgeDiv.setAttribute('data-share-badge-id', badgeId);
+        badgeDiv.setAttribute('data-share-badge-host', 'https://www.credly.com');
+        gridItem.appendChild(badgeDiv);
         gridContainer.appendChild(gridItem);
     });
 
     document.getElementById(placeholderId).appendChild(gridContainer);
 
-    // Load Credly embed script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = '//cdn.credly.com/assets/utilities/embed.js';
-    document.body.appendChild(script);
+    // Load Credly embed script only once
+    if (!document.querySelector('script[src*="credly.com/assets/utilities/embed.js"]')) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = '//cdn.credly.com/assets/utilities/embed.js';
+        document.body.appendChild(script);
+    }
 }
 
 const skills = [
@@ -1010,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Generate Credly grid if the element exists
     if (document.getElementById('credly-grid-placeholder')) {
-        generateCredlyGrid(credlyEmbedCodes, 'credly-grid-placeholder');
+        generateCredlyGrid(credlyBadgeIds, 'credly-grid-placeholder');
     }
 
     // Generate skills grid if the element exists
