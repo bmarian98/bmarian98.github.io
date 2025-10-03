@@ -53,6 +53,12 @@ nav {
   z-index: 1000;
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
 .light-mode nav {
   background: rgba(250, 248, 245, 0.95);
   border-bottom: 1px solid rgba(0, 153, 204, 0.15);
@@ -184,13 +190,15 @@ nav a:hover {
 @media (max-width: 767px) {
   .desktop-menu {
     display: none !important;
-      }
+  }
   
   /* Adjust hero section spacing for mobile navbar */
   section.flex.justify-between {
-    padding: 4.5rem 1rem 1rem !important; /* top, x, bottom - less top padding */
-    gap: 0.5rem !important; /* minimal gap between image and text */
+    padding: 1.5rem 1rem 1rem !important; /* reduce top padding - reduce navbar gap */
+    gap: 0.75rem !important; /* more room between image and text */
+    
     min-height: auto !important; /* remove fixed height */
+    justify-content: center !important; /* center content */
   }
   
   /* Further reduce spacing between content elements */
@@ -211,8 +219,9 @@ nav a:hover {
   }
   
   section.flex.justify-between img {
-    width: 180px !important;
-    height: 180px !important; /* smaller image on mobile */
+    width: 160px !important;
+    height: 160px !important; /* smaller image on mobile */
+    margin-top: 0.5rem !important; /* add small margin to push image down */
   }
 }
 
