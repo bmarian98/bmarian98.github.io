@@ -106,7 +106,7 @@ python -m http.server 5000
 Portfolio data is embedded in `/assets/js/script.js`:
 - `workTimelineData` - Professional experience
 - `studiesTimelineData` - Educational background
-- `credlyEmbedCodes` - Certification badges
+- `credlyBadgeIds` - Certification badge IDs (optimized for single script load)
 - `skills` - Technical skills list
 - `videoUrls` - Project videos
 - `projectLinks` - Project repository links
@@ -118,6 +118,15 @@ Portfolio data is embedded in `/assets/js/script.js`:
 - Focus on DevOps and cloud technologies
 
 ## Recent Changes
+- **Oct 3, 2025**: Major UI/UX improvements
+  - Enhanced dark/light theme system with gradient backgrounds and smooth transitions (0.3s ease)
+  - Improved button styles with modern hover effects and cubic-bezier animations
+  - Made website fully responsive for mobile (320px+), tablet (768px+), and desktop devices
+  - Optimized Credly certification embeds to load script only once instead of per badge
+  - Enhanced navbar with better mobile responsiveness and hamburger menu styling
+  - Improved timeline, skills grid, projects, and contact sections for all screen sizes
+  - Added gradient overlays and better color schemes throughout the site
+  
 - **Oct 3, 2025**: Initial Replit setup
   - Configured Python HTTP server on port 5000
   - Created .gitignore for Python
