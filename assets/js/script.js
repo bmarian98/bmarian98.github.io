@@ -82,7 +82,9 @@ const credlyBadgeIds = [
   '88be74a4-3418-4577-b53f-8f978423208c',
   '3cbbbda5-ba6c-4635-a861-3bb6b13b332f',
   '9301eeea-c745-4c9b-8b06-015aeb609560',
-  '1b6dd5fb-0cbe-4f08-8f75-da28b88d455e'
+  '1b6dd5fb-0cbe-4f08-8f75-da28b88d455e',
+  'e392c409-58cd-4a11-b7f3-c8a93e175a01',
+  '3ea45eaa-d3b3-4825-9a9e-5ecb1afc0d65'
 ];
 
 // Function to generate vertical stepper timeline with encapsulating path
