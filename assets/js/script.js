@@ -79,6 +79,7 @@ const studiesTimelineData = [
 // Credly badge IDs (optimized to load script only once)
 const credlyBadgeIds = [
   'e3536e2b-a534-427c-b7b7-38ee1078c832',
+  '1fe8d4c9-4b6e-42b9-8f83-03efdcad754f',
   '88be74a4-3418-4577-b53f-8f978423208c',
   '3cbbbda5-ba6c-4635-a861-3bb6b13b332f',
   '9301eeea-c745-4c9b-8b06-015aeb609560',
